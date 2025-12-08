@@ -4,8 +4,8 @@ import { AppWrapper } from '@/components/layout/AppWrapper';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: '绿茵助手',
-  description: '您的私人足球赛事助理',
+  title: '第七届全国高校青岛校友足球赛',
+  description: '赛程和比分',
 };
 
 export default function RootLayout({
