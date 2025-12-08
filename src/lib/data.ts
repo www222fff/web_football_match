@@ -48,10 +48,10 @@ const teams: Team[] = teamsData.map(t => ({
 
 
 const matches: Match[] = [
-    { id: 'm1', team1Id: 't1', team2Id: 't2', date: '2023-09-14', time: '10:00-12:00', venue: '极地南场', status: 'scheduled' },
-    { id: 'm2', team1Id: 't3', team2Id: 't4', date: '2023-09-14', time: '10:00-12:00', venue: '极地北场', status: 'scheduled' },
-    { id: 'm3', team1Id: 't5', team2Id: 't6', date: '2023-09-14', time: '12:00-14:00', venue: '极地南场', status: 'scheduled' },
-    { id: 'm4', team1Id: 't7', team2Id: 't8', date: '2023-09-14', time: '12:00-14:00', venue: '极地北场', status: 'scheduled' },
+    { id: 'm1', team1Id: 't1', team2Id: 't2', date: '2023-09-14', time: '10:00-12:00', venue: '极地南场', status: 'finished', score: { team1: 2, team2: 1 } },
+    { id: 'm2', team1Id: 't3', team2Id: 't4', date: '2023-09-14', time: '10:00-12:00', venue: '极地北场', status: 'finished', score: { team1: 0, team2: 0 } },
+    { id: 'm3', team1Id: 't5', team2Id: 't6', date: '2023-09-14', time: '12:00-14:00', venue: '极地南场', status: 'finished', score: { team1: 3, team2: 2 } },
+    { id: 'm4', team1Id: 't7', team2Id: 't8', date: '2023-09-14', time: '12:00-14:00', venue: '极地北场', status: 'finished', score: { team1: 1, team2: 1 } },
     { id: 'm5', team1Id: 't9', team2Id: 't10', date: '2023-09-14', time: '14:00-16:00', venue: '极地南场', status: 'scheduled' },
     { id: 'm6', team1Id: 't11', team2Id: 't12', date: '2023-09-14', time: '14:00-16:00', venue: '极地北场', status: 'scheduled' },
     { id: 'm7', team1Id: 't13', team2Id: 't14', date: '2023-09-14', time: '16:00-18:00', venue: '极地南场', status: 'scheduled' },
@@ -78,8 +78,8 @@ const matches: Match[] = [
     { id: 'm28', team1Id: 't15', team2Id: 't11', date: '2023-09-27', time: '16:20-18:10', venue: '极地北场', status: 'scheduled' },
 ];
 
-const standings: Standing[] = teams.map((team, index) => ({
-    rank: index + 1,
+let standings: Standing[] = teams.map((team) => ({
+    rank: 0,
     team: team,
     played: 0,
     win: 0,
@@ -90,6 +90,43 @@ const standings: Standing[] = teams.map((team, index) => ({
     goalDifference: 0,
     points: 0,
 }));
+
+// Calculate standings from finished matches
+matches.forEach(match => {
+  if (match.status === 'finished' && match.score) {
+    const team1Standing = standings.find(s => s.team.id === match.team1Id);
+    const team2Standing = standings.find(s => s.team.id === match.team2Id);
+    const score1 = match.score.team1;
+    const score2 = match.score.team2;
+
+    if (team1Standing && team2Standing) {
+      team1Standing.played++;
+      team2Standing.played++;
+      team1Standing.goalsFor += score1;
+      team2Standing.goalsFor += score2;
+      team1Standing.goalsAgainst += score2;
+      team2Standing.goalsAgainst += score1;
+      team1Standing.goalDifference = team1Standing.goalsFor - team1Standing.goalsAgainst;
+      team2Standing.goalDifference = team2Standing.goalsFor - team2Standing.goalsAgainst;
+
+      if (score1 > score2) {
+        team1Standing.win++;
+        team2Standing.loss++;
+        team1Standing.points += 3;
+      } else if (score1 < score2) {
+        team2Standing.win++;
+        team1Standing.loss++;
+        team2Standing.points += 3;
+      } else {
+        team1Standing.draw++;
+        team2Standing.draw++;
+        team1Standing.points += 1;
+        team2Standing.points += 1;
+      }
+    }
+  }
+});
+
 
 // Simulate API calls
 export const getTeams = async (): Promise<Team[]> => {
