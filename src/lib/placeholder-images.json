@@ -1,3 +1,64 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "team-logo-1",
+      "description": "Dragon Riders Team Logo",
+      "imageUrl": "https://images.unsplash.com/photo-1764958010679-1cbb8e1f07b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0ZWFtJTIwbG9nb3xlbnwwfHx8fDE3NjUxMDIyMTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "team logo"
+    },
+    {
+      "id": "team-logo-2",
+      "description": "Crimson Tide Team Logo",
+      "imageUrl": "https://images.unsplash.com/photo-1631607054683-fa9cbe49e5f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx0ZWFtJTIwbG9nb3xlbnwwfHx8fDE3NjUxMDIyMTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "team logo"
+    },
+    {
+      "id": "team-logo-3",
+      "description": "Steel Legion Team Logo",
+      "imageUrl": "https://images.unsplash.com/photo-1764958010679-1cbb8e1f07b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0ZWFtJTIwbG9nb3xlbnwwfHx8fDE3NjUxMDIyMTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "team logo"
+    },
+    {
+      "id": "team-logo-4",
+      "description": "Arctic Wolves Team Logo",
+      "imageUrl": "https://images.unsplash.com/photo-1625392085233-3f10b25fac1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx0ZWFtJTIwbG9nb3xlbnwwfHx8fDE3NjUxMDIyMTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "team logo"
+    },
+    {
+      "id": "player-1",
+      "description": "Portrait of Leo Feng",
+      "imageUrl": "https://images.unsplash.com/photo-1663576748377-cafb47103042?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwbGF5ZXIlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjUxNTkwODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "player portrait"
+    },
+    {
+      "id": "player-2",
+      "description": "Portrait of Alex Chen",
+      "imageUrl": "https://images.unsplash.com/photo-1755495523970-3f905e0266db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwbGF5ZXIlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjUxNTkwODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "player portrait"
+    },
+    {
+      "id": "player-3",
+      "description": "Portrait of Sam Li",
+      "imageUrl": "https://images.unsplash.com/photo-1741335087341-5d7e443c3e11?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwbGF5ZXIlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjUxNTkwODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "player portrait"
+    },
+    {
+      "id": "player-4",
+      "description": "Portrait of Chris Wang",
+      "imageUrl": "https://images.unsplash.com/photo-1684329563255-fee081718dec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwbGF5ZXIlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjUxNTkwODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "player portrait"
+    },
+    {
+      "id": "player-5",
+      "description": "Portrait of Mike Zhang",
+      "imageUrl": "https://images.unsplash.com/photo-1606335544053-c43609e6155d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwbGF5ZXIlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjUxNTkwODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "player portrait"
+    },
+    {
+      "id": "player-6",
+      "description": "Portrait of David Sun",
+      "imageUrl": "https://images.unsplash.com/photo-1755495523970-3f905e0266db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwbGF5ZXIlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjUxNTkwODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "player portrait"
+    }
+  ]
 }
