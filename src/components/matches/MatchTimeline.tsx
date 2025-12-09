@@ -1,14 +1,36 @@
 'use client';
 import { type EnrichedMatch, type Team, type EnrichedMatchEvent } from "@/lib/types";
 import Image from "next/image";
-import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
-import { SoccerBall } from "lucide-react";
+
+function SoccerBallIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 2a4.4 4.4 0 0 0-4.39 4.39L2.56 2.56" />
+            <path d="M2.56 21.44l3.83-3.83A4.4 4.4 0 0 0 12 22a4.4 4.4 0 0 0 4.39-4.39l3.83 3.83" />
+            <path d="M22 12a4.4 4.4 0 0 0-4.39-4.39L21.44 2.56" />
+            <path d="M17.61 17.61l-3.83-3.83A4.4 4.4 0 0 0 8 12a4.4 4.4 0 0 0-4.39 4.39l-3.83 3.83" />
+            <path d="M6.39 6.39 12 12l5.61-5.61" />
+        </svg>
+    )
+}
 
 function EventIcon({type}: {type: EnrichedMatchEvent['type']}) {
     switch (type) {
         case 'goal':
-            return <SoccerBall className="h-4 w-4 text-foreground" />;
+            return <SoccerBallIcon className="h-4 w-4 text-foreground" />;
         case 'yellow-card':
             return <div className="h-4 w-4 bg-yellow-400 rounded-sm border border-black/20" />;
         case 'red-card':
