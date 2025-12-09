@@ -1,0 +1,123 @@
+/**
+ * Core Philosophy: This ruleset establishes a "Public Read, Admin Write" security model.
+ * All data related to tournaments, teams, players, schedules, results, and rankings is considered
+ * public and can be read by any user, whether authenticated or not. This supports a public-facing
+ * application where consumers can browse sports data freely.
+ *
+ * Data Structure: The data is organized into a flat, non-hierarchical structure with top-level
+ * collections for each major entity (e.g., /tournaments, /teams, /players). This simple structure
+ * is efficient for direct lookups and public queries.
+ *
+ * Key Security Decisions:
+ * - Public Read Access: All collections are readable (`get`, `list`) by anyone to facilitate
+ *   easy data consumption for the app's front-end.
+ * - Write Restriction: All write operations (`create`, `update`, `delete`) are disabled by default
+ *   (`if false`). This is a critical security measure because the data model lacks a concept of
+ *   data ownership (e.g., `creatorId`) or an admin role system. Enabling writes without such a
+ *   system would allow any user to modify or delete critical application data. To enable writes,
+ *   a secure authorization mechanism (like admin-only access) must be implemented first.
+ *
+ * Denormalization for Authorization: Not currently required. The security model is simple and does
+ * not depend on complex relationships. If, in the future, access needs to be restricted (e.g., only
+ * tournament organizers can edit a tournament), the recommended pattern would be to add a `members`
+ * map to the `Tournament` document (e.g., `members: {'user_abc': 'organizer'}`) to control access.
+ *
+ * Structural Segregation: Not applicable in this model as all data is treated as public.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ----------------------------------------------------------------------
+    // Helper Functions
+    // ----------------------------------------------------------------------
+
+    // ----------------------------------------------------------------------
+    // Collection Rules
+    // ----------------------------------------------------------------------
+
+    /**
+     * @description Allows public read access for all tournament data. Writes are disabled
+     *              until a proper authorization mechanism (e.g., admin roles) is implemented.
+     * @path /tournaments/{tournamentId}
+     * @allow Anyone, signed-in or not, can read a specific tournament. `(get)`
+     * @deny An authenticated user attempts to create a new tournament. `(create)`
+     * @principle Public read access for global data. Writes are restricted to prevent unauthorized modification.
+     */
+    match /tournaments/{tournamentId} {
+      allow get, list: if true;
+      // CRITICAL: Cannot implement authorized writes. The 'Tournament' entity is missing an ownership field (e.g., 'creatorId') or an admin role system.
+      allow create, update, delete: if false; // TODO: Implement write authorization (e.g., check for an admin custom claim) when ready.
+    }
+
+    /**
+     * @description Allows public read access for all team data. Writes are disabled
+     *              until a proper authorization mechanism (e.g., admin roles) is implemented.
+     * @path /teams/{teamId}
+     * @allow Anyone, signed-in or not, can list all teams. `(list)`
+     * @deny An authenticated user attempts to update an existing team. `(update)`
+     * @principle Public read access for global data. Writes are restricted to prevent unauthorized modification.
+     */
+    match /teams/{teamId} {
+      allow get, list: if true;
+      // CRITICAL: Cannot implement authorized writes. The 'Team' entity is missing an ownership field (e.g., 'creatorId') or an admin role system.
+      allow create, update, delete: if false; // TODO: Implement write authorization (e.g., check for an admin custom claim) when ready.
+    }
+
+    /**
+     * @description Allows public read access for all player data. Writes are disabled
+     *              until a proper authorization mechanism (e.g., admin roles) is implemented.
+     * @path /players/{playerId}
+     * @allow Anyone, signed-in or not, can read a specific player's profile. `(get)`
+     * @deny An authenticated user attempts to delete a player. `(delete)`
+     * @principle Public read access for global data. Writes are restricted to prevent unauthorized modification.
+     */
+    match /players/{playerId} {
+      allow get, list: if true;
+      // CRITICAL: Cannot implement authorized writes. The 'Player' entity is missing an ownership field (e.g., 'creatorId') or an admin role system.
+      allow create, update, delete: if false; // TODO: Implement write authorization (e.g., check for an admin custom claim) when ready.
+    }
+
+    /**
+     * @description Allows public read access for all match schedule data. Writes are disabled
+     *              until a proper authorization mechanism (e.g., admin roles) is implemented.
+     * @path /match_schedules/{matchScheduleId}
+     * @allow Anyone, signed-in or not, can list all match schedules. `(list)`
+     * @deny An authenticated user attempts to create a new match schedule. `(create)`
+     * @principle Public read access for global data. Writes are restricted to prevent unauthorized modification.
+     */
+    match /match_schedules/{matchScheduleId} {
+      allow get, list: if true;
+      // CRITICAL: Cannot implement authorized writes. The 'MatchSchedule' entity is missing an ownership field (e.g., 'creatorId') or an admin role system.
+      allow create, update, delete: if false; // TODO: Implement write authorization (e.g., check for an admin custom claim) when ready.
+    }
+
+    /**
+     * @description Allows public read access for all match result data. Writes are disabled
+     *              until a proper authorization mechanism (e.g., admin roles) is implemented.
+     * @path /match_results/{matchResultId}
+     * @allow Anyone, signed-in or not, can read a specific match result. `(get)`
+     * @deny An authenticated user attempts to update a match result. `(update)`
+     * @principle Public read access for global data. Writes are restricted to prevent unauthorized modification.
+     */
+    match /match_results/{matchResultId} {
+      allow get, list: if true;
+      // CRITICAL: Cannot implement authorized writes. The 'MatchResult' entity is missing an ownership field (e.g., 'creatorId') or an admin role system.
+      allow create, update, delete: if false; // TODO: Implement write authorization (e.g., check for an admin custom claim) when ready.
+    }
+
+    /**
+     * @description Allows public read access for all ranking data. Writes are disabled
+     *              until a proper authorization mechanism (e.g., admin roles) is implemented.
+     * @path /rankings/{rankingId}
+     * @allow Anyone, signed-in or not, can list all rankings. `(list)`
+     * @deny An authenticated user attempts to delete a ranking. `(delete)`
+     * @principle Public read access for global data. Writes are restricted to prevent unauthorized modification.
+     */
+    match /rankings/{rankingId} {
+      allow get, list: if true;
+      // CRITICAL: Cannot implement authorized writes. The 'Ranking' entity is missing an ownership field (e.g., 'creatorId') or an admin role system.
+      allow create, update, delete: if false; // TODO: Implement write authorization (e.g., check for an admin custom claim) when ready.
+    }
+  }
+}
