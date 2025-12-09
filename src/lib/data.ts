@@ -17,8 +17,10 @@ const processLocalEditionData = (editionData: any): TournamentEdition => {
     }));
 
     const matches: Match[] = editionData.matches.map((m: any) => {
-        const matchEvents = editionData.matchEvents[m.id] || [];
-        return { ...m, events: matchEvents };
+        // In the JSON, matchEvents is an object with match IDs as keys.
+        // We find the events for the current match.
+        const matchEventsForMatch = editionData.matchEvents ? editionData.matchEvents[m.id] || [] : [];
+        return { ...m, events: matchEventsForMatch };
     });
 
     return {

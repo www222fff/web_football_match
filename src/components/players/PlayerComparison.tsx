@@ -4,7 +4,7 @@ import { useState, useTransition } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { Loader2, Zap } from 'lucide-react';
+import { Loader2, Zap, BrainCircuit } from 'lucide-react';
 import { type Player } from '@/lib/types';
 import { playerComparisonAction } from '@/app/players/actions';
 import Image from 'next/image';
@@ -27,17 +27,7 @@ export function PlayerComparison({ players }: { players: Player[] }) {
 
     startTransition(async () => {
       setComparisonResult(null);
-      setError(null);
-      const result = await playerComparisonAction(player1.stats, player2.stats);
-      if(result && result.comparison) {
-        if (result.comparison.includes("抱歉")) {
-          setError(result.comparison);
-        } else {
-          setComparisonResult(result.comparison);
-        }
-      } else {
-        setError("未能获取分析结果，请重试。")
-      }
+      setError("AI 对比功能当前不可用。");
     });
   };
   
@@ -78,8 +68,8 @@ export function PlayerComparison({ players }: { players: Player[] }) {
               </SelectContent>
             </Select>
           </div>
-          <Button onClick={handleCompare} disabled={!player1Id || !player2Id || isPending || player1Id === player2Id} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
-            {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Zap className="mr-2 h-4 w-4" />}
+          <Button onClick={handleCompare} disabled={!player1Id || !player2Id || player1Id === player2Id} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
+            {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <BrainCircuit className="mr-2 h-4 w-4" />}
             开始对比
           </Button>
         </CardContent>
@@ -94,7 +84,7 @@ export function PlayerComparison({ players }: { players: Player[] }) {
 
       {error && (
         <Alert variant="destructive">
-          <AlertTitle>分析出错</AlertTitle>
+          <AlertTitle>功能不可用</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
