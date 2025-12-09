@@ -8,27 +8,30 @@ import { AlertCircle } from "lucide-react";
 import { Suspense } from "react";
 
 export async function generateStaticParams() {
+  // This function needs to generate all possible `id` params for the match pages.
+  // Since matches can be accessed with or without an `edition` search param,
+  // we just need to ensure we generate a path for every single match ID across all editions.
   const allEditions = await getAvailableEditions();
-  
-  const params: {id: string, edition?: string}[] = [];
+  let allMatchIds = new Set<string>();
 
+  // Collect all match IDs from all editions
   for (const edition of allEditions) {
     const matches = await getMatches(edition.id);
     matches.forEach(match => {
-        // Param for paths like /match/m1?edition=7
-        params.push({ id: match.id, edition: edition.id });
+        allMatchIds.add(match.id);
     });
   }
- 
-  // Also generate for default (no edition param), which uses the latest edition
-  const defaultMatches = await getMatches(); // Gets latest by default
-   defaultMatches.forEach(match => {
-        // Param for paths like /match/m1
-        params.push({ id: match.id });
-    });
 
+  // Also get matches for the default (latest) edition
+  const defaultMatches = await getMatches();
+  defaultMatches.forEach(match => {
+    allMatchIds.add(match.id);
+  });
 
-  return params.map(p => ({ id: p.id })); // Return only the `id` part for the path param
+  // Return the list of unique match IDs for Next.js to build
+  return Array.from(allMatchIds).map(id => ({
+    id: id,
+  }));
 }
 
 export default async function MatchPage({ params, searchParams }: { params: { id: string }, searchParams: { edition?: string } }) {
