@@ -1,4 +1,4 @@
-import { getMatch, getMatches } from "@/lib/data";
+import { getMatch, getMatches, getAvailableEditions } from "@/lib/data";
 import { TopHeader } from "@/components/layout/TopHeader";
 import { MatchCard } from "@/components/matches/MatchCard";
 import { MatchTimeline } from "@/components/matches/MatchTimeline";
@@ -8,18 +8,24 @@ import { AlertCircle } from "lucide-react";
 import { Suspense } from "react";
 
 export async function generateStaticParams() {
-  const allMatches = await getMatches();
-  const allEditions = ['6', '7']; // Or dynamically get all editions
+  const allEditions = await getAvailableEditions();
   
-  const params: {id: string, edition?: string}[] = [];
+  const params: {id: string, edition: string}[] = [];
 
-  for (const editionId of allEditions) {
-    const matches = await getMatches(editionId);
+  for (const edition of allEditions) {
+    const matches = await getMatches(edition.id);
     matches.forEach(match => {
-        params.push({ id: match.id });
+        params.push({ id: match.id, edition: edition.id });
     });
   }
  
+  // Also generate for default (no edition param)
+  const defaultMatches = await getMatches();
+   defaultMatches.forEach(match => {
+        params.push({ id: match.id, edition: undefined as any });
+    });
+
+
   return params;
 }
 

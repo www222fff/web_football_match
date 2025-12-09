@@ -1,7 +1,12 @@
 import { MatchCard } from "@/components/matches/MatchCard";
 import { TopHeader } from "@/components/layout/TopHeader";
-import { getMatches } from "@/lib/data";
+import { getMatches, getAvailableEditions } from "@/lib/data";
 import { type EnrichedMatch } from "@/lib/types";
+
+export async function generateStaticParams() {
+  const editions = await getAvailableEditions();
+  return editions.map(e => ({ edition: e.id }));
+}
 
 export default async function SchedulePage({ searchParams }: { searchParams: { edition?: string } }) {
   const editionId = searchParams.edition;

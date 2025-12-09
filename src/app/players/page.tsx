@@ -2,7 +2,12 @@ import { TopHeader } from "@/components/layout/TopHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PlayerList } from "./PlayerList";
 import { PlayerComparison } from "@/components/players/PlayerComparison";
-import { getPlayers } from "@/lib/data";
+import { getPlayers, getAvailableEditions } from "@/lib/data";
+
+export async function generateStaticParams() {
+  const editions = await getAvailableEditions();
+  return editions.map(e => ({ edition: e.id }));
+}
 
 export default async function PlayersPage({ searchParams }: { searchParams: { edition?: string } }) {
   const editionId = searchParams.edition;

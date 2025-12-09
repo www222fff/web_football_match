@@ -1,6 +1,11 @@
 import { StandingsTable } from "@/components/standings/StandingsTable";
 import { TopHeader } from "@/components/layout/TopHeader";
-import { getStandings } from "@/lib/data";
+import { getStandings, getAvailableEditions } from "@/lib/data";
+
+export async function generateStaticParams() {
+  const editions = await getAvailableEditions();
+  return editions.map(e => ({ edition: e.id }));
+}
 
 export default async function StandingsPage({ searchParams }: { searchParams: { edition?: string } }) {
   const editionId = searchParams.edition;

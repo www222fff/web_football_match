@@ -1,6 +1,6 @@
 import { MatchCard } from "@/components/matches/MatchCard";
 import { TopHeader } from "@/components/layout/TopHeader";
-import { getMatches } from "@/lib/data";
+import { getMatches, getAvailableEditions } from "@/lib/data";
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Info } from 'lucide-react';
@@ -12,6 +12,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+export async function generateStaticParams() {
+  const editions = await getAvailableEditions();
+  return editions.map(e => ({ edition: e.id }));
+}
 
 export default async function Home({ searchParams }: { searchParams: { edition?: string } }) {
   const editionId = searchParams.edition;
