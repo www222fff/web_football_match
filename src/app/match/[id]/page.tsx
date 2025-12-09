@@ -9,34 +9,25 @@ import { Suspense } from "react";
 
 export async function generateStaticParams() {
   const allEditions = await getAvailableEditions();
-  const allParams = new Set<string>();
+  const allParams: { id: string, edition?: string }[] = [];
 
   // Helper function to process matches for an edition
   const processMatches = async (editionId?: string) => {
     const matches = await getMatches(editionId);
     matches.forEach(match => {
-      const param = JSON.stringify({
-        id: match.id,
-        edition: editionId || null
-      });
-      allParams.add(param);
+      // For static export, searchParams are not directly supported in generateStaticParams.
+      // Next.js handles this by rendering different pages based on link URLs.
+      // We just need to provide all possible dynamic `id` segments.
     });
   };
-
-  // Process for default edition
-  await processMatches(undefined);
-
-  // Process for all available editions
-  for (const edition of allEditions) {
-    await processMatches(edition.id);
-  }
-
-  // Next.js expects an object with the dynamic param name, not the searchParam.
-  // The searchParam part is handled by Next.js when it renders pages based on links.
-  // We just need to make sure all possible `id`s are generated.
+  
   const allMatchIds = new Set<string>();
+
+  // Get matches for default edition
   const matches_default = await getMatches();
   matches_default.forEach(m => allMatchIds.add(m.id));
+
+  // Get matches for all available editions
   for (const edition of allEditions) {
       const matches_edition = await getMatches(edition.id);
       matches_edition.forEach(m => allMatchIds.add(m.id));

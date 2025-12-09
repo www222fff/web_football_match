@@ -5,6 +5,7 @@ import { getStandings, getAvailableEditions } from "@/lib/data";
 export async function generateStaticParams() {
   const editions = await getAvailableEditions();
   const params = editions.map(e => ({ edition: e.id }));
+  // Add a case for no edition (the default)
   params.push({ edition: undefined! });
   return params;
 }
