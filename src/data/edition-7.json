@@ -1,0 +1,89 @@
+
+{
+    "id": "7",
+    "name": "第七届",
+    "year": 2025,
+    "teams": [
+        { "id": "t1", "name": "山东交通学院", "logoImageId": "team-logo-1", "coach": "交教练" },
+        { "id": "t2", "name": "四川大学", "logoImageId": "team-logo-2", "coach": "川教练" },
+        { "id": "t3", "name": "同济大学", "logoImageId": "team-logo-3", "coach": "同教练" },
+        { "id": "t4", "name": "西北工业大学", "logoImageId": "team-logo-4", "coach": "西教练" },
+        { "id": "t5", "name": "华科山一医", "logoImageId": "team-logo-5", "coach": "华教练" },
+        { "id": "t6", "name": "湖南大学", "logoImageId": "team-logo-6", "coach": "湖教练" },
+        { "id": "t7", "name": "北航西大武大", "logoImageId": "team-logo-7", "coach": "北教练" },
+        { "id": "t8", "name": "山东建筑大学", "logoImageId": "team-logo-8", "coach": "建教练" },
+        { "id": "t9", "name": "清华山理工", "logoImageId": "team-logo-9", "coach": "清教练" },
+        { "id": "t10", "name": "吉林大学", "logoImageId": "team-logo-10", "coach": "吉教练" },
+        { "id": "t11", "name": "山东农业大学", "logoImageId": "team-logo-11", "coach": "农教练" },
+        { "id": "t12", "name": "济南大学", "logoImageId": "team-logo-12", "coach": "济教练" },
+        { "id": "t13", "name": "大连理工大学", "logoImageId": "team-logo-13", "coach": "大教练" },
+        { "id": "t14", "name": "哈尔滨工程大学", "logoImageId": "team-logo-14", "coach": "哈教练" },
+        { "id": "t15", "name": "天大重大", "logoImageId": "team-logo-15", "coach": "天教练" },
+        { "id": "t16", "name": "武理工地大", "logoImageId": "team-logo-16", "coach": "武教练" },
+        { "id": "t17", "name": "青岛大学", "logoImageId": "team-logo-17", "coach": "青教练" },
+        { "id": "t18", "name": "华理南理工", "logoImageId": "team-logo-18", "coach": "华教练" },
+        { "id": "t19", "name": "烟台大学", "logoImageId": "team-logo-19", "coach": "烟教练" },
+        { "id": "t20", "name": "山东财经大学", "logoImageId": "team-logo-20", "coach": "财教练" },
+        { "id": "t21", "name": "山东科技大学", "logoImageId": "team-logo-21", "coach": "科教练" },
+        { "id": "t22", "name": "中国海洋大学", "logoImageId": "team-logo-22", "coach": "海教练" },
+        { "id": "t23", "name": "青岛科技大学", "logoImageId": "team-logo-23", "coach": "科教练" },
+        { "id": "t24", "name": "中国石油大学", "logoImageId": "team-logo-24", "coach": "油教练" },
+        { "id": "t25", "name": "延边大学", "logoImageId": "team-logo-25", "coach": "延教练" },
+        { "id": "t26", "name": "厦大北大", "logoImageId": "team-logo-26", "coach": "厦教练" }
+    ],
+    "players": [
+        {"id": "p1-7", "name": "交通球员A", "position": "前锋", "number": 9, "imageId": "player-1", "teamId": "t1", "stats": {"gamesPlayed": 5, "goals": 3, "assists": 1, "shotsPerGame": 2.5, "passSuccessRate": 80, "yellowCards": 1, "redCards": 0}},
+        {"id": "p2-7", "name": "交通球员B", "position": "中场", "number": 10, "imageId": "player-2", "teamId": "t1", "stats": {"gamesPlayed": 5, "goals": 1, "assists": 4, "shotsPerGame": 1.2, "passSuccessRate": 88, "yellowCards": 0, "redCards": 0}},
+        {"id": "p3-7", "name": "交通球员C", "position": "后卫", "number": 4, "imageId": "player-3", "teamId": "t1", "stats": {"gamesPlayed": 5, "goals": 0, "assists": 1, "shotsPerGame": 0.5, "passSuccessRate": 85, "yellowCards": 2, "redCards": 0}},
+        {"id": "p4-7", "name": "川大球员A", "position": "前锋", "number": 9, "imageId": "player-1", "teamId": "t2", "stats": {"gamesPlayed": 5, "goals": 3, "assists": 1, "shotsPerGame": 2.5, "passSuccessRate": 80, "yellowCards": 1, "redCards": 0}},
+        {"id": "p5-7", "name": "川大球员B", "position": "中场", "number": 10, "imageId": "player-2", "teamId": "t2", "stats": {"gamesPlayed": 5, "goals": 1, "assists": 4, "shotsPerGame": 1.2, "passSuccessRate": 88, "yellowCards": 0, "redCards": 0}},
+        {"id": "p6-7", "name": "川大球员C", "position": "后卫", "number": 4, "imageId": "player-3", "teamId": "t2", "stats": {"gamesPlayed": 5, "goals": 0, "assists": 1, "shotsPerGame": 0.5, "passSuccessRate": 85, "yellowCards": 2, "redCards": 0}},
+        {"id": "p7-7", "name": "同济球员A", "position": "前锋", "number": 9, "imageId": "player-1", "teamId": "t3", "stats": {"gamesPlayed": 5, "goals": 3, "assists": 1, "shotsPerGame": 2.5, "passSuccessRate": 80, "yellowCards": 1, "redCards": 0}},
+        {"id": "p8-7", "name": "同济球员B", "position": "中场", "number": 10, "imageId": "player-2", "teamId": "t3", "stats": {"gamesPlayed": 5, "goals": 1, "assists": 4, "shotsPerGame": 1.2, "passSuccessRate": 88, "yellowCards": 0, "redCards": 0}},
+        {"id": "p9-7", "name": "同济球员C", "position": "后卫", "number": 4, "imageId": "player-3", "teamId": "t3", "stats": {"gamesPlayed": 5, "goals": 0, "assists": 1, "shotsPerGame": 0.5, "passSuccessRate": 85, "yellowCards": 2, "redCards": 0}},
+        {"id": "p10-7", "name": "西工球员A", "position": "前锋", "number": 9, "imageId": "player-1", "teamId": "t4", "stats": {"gamesPlayed": 5, "goals": 3, "assists": 1, "shotsPerGame": 2.5, "passSuccessRate": 80, "yellowCards": 1, "redCards": 0}},
+        {"id": "p11-7", "name": "西工球员B", "position": "中场", "number": 10, "imageId": "player-2", "teamId": "t4", "stats": {"gamesPlayed": 5, "goals": 1, "assists": 4, "shotsPerGame": 1.2, "passSuccessRate": 88, "yellowCards": 0, "redCards": 0}},
+        {"id": "p12-7", "name": "西工球员C", "position": "后卫", "number": 4, "imageId": "player-3", "teamId": "t4", "stats": {"gamesPlayed": 5, "goals": 0, "assists": 1, "shotsPerGame": 0.5, "passSuccessRate": 85, "yellowCards": 2, "redCards": 0}},
+        {"id": "p13-7", "name": "华科球员A", "position": "前锋", "number": 9, "imageId": "player-1", "teamId": "t5", "stats": {"gamesPlayed": 5, "goals": 3, "assists": 1, "shotsPerGame": 2.5, "passSuccessRate": 80, "yellowCards": 1, "redCards": 0}},
+        {"id": "p14-7", "name": "华科球员B", "position": "中场", "number": 10, "imageId": "player-2", "teamId": "t5", "stats": {"gamesPlayed": 5, "goals": 1, "assists": 4, "shotsPerGame": 1.2, "passSuccessRate": 88, "yellowCards": 0, "redCards": 0}},
+        {"id": "p15-7", "name": "华科球员C", "position": "后卫", "number": 4, "imageId": "player-3", "teamId": "t5", "stats": {"gamesPlayed": 5, "goals": 0, "assists": 1, "shotsPerGame": 0.5, "passSuccessRate": 85, "yellowCards": 2, "redCards": 0}},
+        {"id": "p16-7", "name": "湖大球员A", "position": "前锋", "number": 9, "imageId": "player-1", "teamId": "t6", "stats": {"gamesPlayed": 5, "goals": 3, "assists": 1, "shotsPerGame": 2.5, "passSuccessRate": 80, "yellowCards": 1, "redCards": 0}},
+        {"id": "p17-7", "name": "湖大球员B", "position": "中场", "number": 10, "imageId": "player-2", "teamId": "t6", "stats": {"gamesPlayed": 5, "goals": 1, "assists": 4, "shotsPerGame": 1.2, "passSuccessRate": 88, "yellowCards": 0, "redCards": 0}},
+        {"id": "p18-7", "name": "湖大球员C", "position": "后卫", "number": 4, "imageId": "player-3", "teamId": "t6", "stats": {"gamesPlayed": 5, "goals": 0, "assists": 1, "shotsPerGame": 0.5, "passSuccessRate": 85, "yellowCards": 2, "redCards": 0}},
+        {"id": "p19-7", "name": "北航球员A", "position": "前锋", "number": 9, "imageId": "player-1", "teamId": "t7", "stats": {"gamesPlayed": 5, "goals": 3, "assists": 1, "shotsPerGame": 2.5, "passSuccessRate": 80, "yellowCards": 1, "redCards": 0}},
+        {"id": "p20-7", "name": "北航球员B", "position": "中场", "number": 10, "imageId": "player-2", "teamId": "t7", "stats": {"gamesPlayed": 5, "goals": 1, "assists": 4, "shotsPerGame": 1.2, "passSuccessRate": 88, "yellowCards": 0, "redCards": 0}},
+        {"id": "p21-7", "name": "北航球员C", "position": "后卫", "number": 4, "imageId": "player-3", "teamId": "t7", "stats": {"gamesPlayed": 5, "goals": 0, "assists": 1, "shotsPerGame": 0.5, "passSuccessRate": 85, "yellowCards": 2, "redCards": 0}},
+        {"id": "p22-7", "name": "山建球员A", "position": "前锋", "number": 9, "imageId": "player-1", "teamId": "t8", "stats": {"gamesPlayed": 5, "goals": 3, "assists": 1, "shotsPerGame": 2.5, "passSuccessRate": 80, "yellowCards": 1, "redCards": 0}},
+        {"id": "p23-7", "name": "山建球员B", "position": "中场", "number": 10, "imageId": "player-2", "teamId": "t8", "stats": {"gamesPlayed": 5, "goals": 1, "assists": 4, "shotsPerGame": 1.2, "passSuccessRate": 88, "yellowCards": 0, "redCards": 0}},
+        {"id": "p24-7", "name": "山建球员C", "position": "后卫", "number": 4, "imageId": "player-3", "teamId": "t8", "stats": {"gamesPlayed": 5, "goals": 0, "assists": 1, "shotsPerGame": 0.5, "passSuccessRate": 85, "yellowCards": 2, "redCards": 0}}
+    ],
+    "matches": [
+        { "id": "m1", "team1Id": "t1", "team2Id": "t2", "date": "2025-09-14", "time": "10:00-12:00", "venue": "极地南场", "status": "finished", "score": { "team1": 2, "team2": 1 } },
+        { "id": "m2", "team1Id": "t3", "team2Id": "t4", "date": "2025-09-14", "time": "10:00-12:00", "venue": "极地北场", "status": "finished", "score": { "team1": 0, "team2": 0 } },
+        { "id": "m3", "team1Id": "t5", "team2Id": "t6", "date": "2025-09-14", "time": "12:00-14:00", "venue": "极地南场", "status": "finished", "score": { "team1": 3, "team2": 2 } },
+        { "id": "m4", "team1Id": "t7", "team2Id": "t8", "date": "2025-09-14", "time": "12:00-14:00", "venue": "极地北场", "status": "finished", "score": { "team1": 1, "team2": 1 } },
+        { "id": "m5", "team1Id": "t9", "team2Id": "t10", "date": "2025-09-14", "time": "14:00-16:00", "venue": "极地南场", "status": "scheduled" },
+        { "id": "m6", "team1Id": "t11", "team2Id": "t12", "date": "2025-09-14", "time": "14:00-16:00", "venue": "极地北场", "status": "scheduled" }
+    ],
+    "matchEvents": {
+        "m1": [
+            { "minute": 23, "type": "goal", "playerId": "p1-7", "teamId": "t1" },
+            { "minute": 48, "type": "goal", "playerId": "p4-7", "teamId": "t2" },
+            { "minute": 78, "type": "goal", "playerId": "p2-7", "teamId": "t1" },
+            { "minute": 85, "type": "yellow-card", "playerId": "p6-7", "teamId": "t2" }
+        ],
+        "m3": [
+            { "minute": 11, "type": "goal", "playerId": "p13-7", "teamId": "t5" },
+            { "minute": 34, "type": "yellow-card", "playerId": "p18-7", "teamId": "t6" },
+            { "minute": 45, "type": "goal", "playerId": "p14-7", "teamId": "t5" },
+            { "minute": 55, "type": "goal", "playerId": "p16-7", "teamId": "t6" },
+            { "minute": 68, "type": "goal", "playerId": "p17-7", "teamId": "t6" },
+            { "minute": 92, "type": "goal", "playerId": "p13-7", "teamId": "t5" }
+        ],
+        "m4": [
+            { "minute": 50, "type": "goal", "playerId": "p22-7", "teamId": "t8" },
+            { "minute": 90, "type": "red-card", "playerId": "p20-7", "teamId": "t7" },
+            { "minute": 91, "type": "goal", "playerId": "p19-7", "teamId": "t7" }
+        ]
+    }
+}

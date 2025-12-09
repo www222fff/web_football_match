@@ -1,0 +1,28 @@
+
+{
+    "id": "6",
+    "name": "第六届",
+    "year": 2024,
+    "teams": [
+        { "id": "t1-6", "name": "老朋友队", "logoImageId": "team-logo-1", "coach": "老教练" },
+        { "id": "t2-6", "name": "青春风暴", "logoImageId": "team-logo-2", "coach": "青教练" },
+        { "id": "t3-6", "name": "蓝色火焰", "logoImageId": "team-logo-3", "coach": "蓝教练" },
+        { "id": "t4-6", "name": "城市精英", "logoImageId": "team-logo-4", "coach": "城教练" },
+        { "id": "t5-6", "name": "绿茵荣耀", "logoImageId": "team-logo-5", "coach": "绿教练" },
+        { "id": "t6-6", "name": "黑马奇迹", "logoImageId": "team-logo-6", "coach": "黑教练" },
+        { "id": "t7-6", "name": "永不言弃", "logoImageId": "team-logo-7", "coach": "永教练" },
+        { "id": "t8-6", "name": "黄金一代", "logoImageId": "team-logo-8", "coach": "黄教练" }
+    ],
+    "players": [
+        { "id": "p1-6", "name": "老朋友球员A", "position": "前锋", "number": 9, "imageId": "player-1", "teamId": "t1-6", "stats": { "gamesPlayed": 4, "goals": 5, "assists": 2, "shotsPerGame": 3.5, "passSuccessRate": 75, "yellowCards": 0, "redCards": 0 } },
+        { "id": "p2-6", "name": "老朋友球员B", "position": "中场", "number": 8, "imageId": "player-2", "teamId": "t1-6", "stats": { "gamesPlayed": 4, "goals": 1, "assists": 5, "shotsPerGame": 1.5, "passSuccessRate": 90, "yellowCards": 1, "redCards": 0 } },
+        { "id": "p3-6", "name": "青春风暴球员A", "position": "后卫", "number": 4, "imageId": "player-3", "teamId": "t2-6", "stats": { "gamesPlayed": 4, "goals": 0, "assists": 1, "shotsPerGame": 0.5, "passSuccessRate": 85, "yellowCards": 2, "redCards": 0 } }
+    ],
+    "matches": [
+        { "id": "m1-6", "team1Id": "t1-6", "team2Id": "t2-6", "date": "2024-08-10", "time": "10:00", "venue": "白沙湾球场", "status": "finished", "score": { "team1": 4, "team2": 2 } },
+        { "id": "m2-6", "team1Id": "t3-6", "team2Id": "t4-6", "date": "2024-08-10", "time": "12:00", "venue": "白沙湾球场", "status": "finished", "score": { "team1": 1, "team2": 0 } },
+        { "id": "m3-6", "team1Id": "t5-6", "team2Id": "t6-6", "date": "2024-08-11", "time": "10:00", "venue": "白沙湾球场", "status": "finished", "score": { "team1": 2, "team2": 2 } },
+        { "id": "m4-6", "team1Id": "t7-6", "team2Id": "t8-6", "date": "2024-08-11", "time": "12:00", "venue": "白沙湾球场", "status": "finished", "score": { "team1": 0, "team2": 3 } }
+    ],
+    "matchEvents": {}
+}
