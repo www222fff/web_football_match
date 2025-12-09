@@ -38,8 +38,7 @@ export default async function Home({ searchParams }: { searchParams: { edition?:
     <div className="flex flex-col">
       <TopHeader title="首页" />
       <div className="p-4 space-y-6">
-        {nextMatch && (
-          <section>
+        <section>
             <div className="flex justify-between items-center mb-2">
               <h2 className="text-xl font-bold font-headline">即将开始</h2>
               <Button variant="ghost" size="sm" asChild>
@@ -48,12 +47,16 @@ export default async function Home({ searchParams }: { searchParams: { edition?:
                 </Link>
               </Button>
             </div>
-            <MatchCard match={nextMatch} />
-          </section>
-        )}
+            {nextMatch ? (
+                <MatchCard match={nextMatch} />
+            ) : (
+                <Card className="flex items-center justify-center h-24">
+                    <p className="text-muted-foreground">暂无即将开始的比赛</p>
+                </Card>
+            )}
+        </section>
         
-        {lastResult && (
-          <section>
+        <section>
             <div className="flex justify-between items-center mb-2">
               <h2 className="text-xl font-bold font-headline">最新赛果</h2>
               <Button variant="ghost" size="sm" asChild>
@@ -62,9 +65,14 @@ export default async function Home({ searchParams }: { searchParams: { edition?:
                 </Link>
               </Button>
             </div>
-            <MatchCard match={lastResult} />
-          </section>
-        )}
+            {lastResult ? (
+                <MatchCard match={lastResult} />
+            ) : (
+                <Card className="flex items-center justify-center h-24">
+                    <p className="text-muted-foreground">暂无最新赛果</p>
+                </Card>
+            )}
+        </section>
 
         <section>
            <Card>
