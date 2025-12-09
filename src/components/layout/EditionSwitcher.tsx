@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ChevronsUpDown } from 'lucide-react';
+import { Skeleton } from '../ui/skeleton';
 
 export function EditionSwitcher() {
   const router = useRouter();
@@ -20,8 +21,10 @@ export function EditionSwitcher() {
 
   const [editions, setEditions] = useState<{ id: string; name: string }[]>([]);
   const [currentEditionName, setCurrentEditionName] = useState('');
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     getAvailableEditions().then(availableEditions => {
         setEditions(availableEditions);
         const current = availableEditions.find(e => e.id === currentEditionId);
@@ -34,6 +37,11 @@ export function EditionSwitcher() {
     params.set('edition', newEditionId);
     router.push(`${pathname}?${params.toString()}`);
   };
+
+  if (!isMounted) {
+    // 在客户端挂载完成前，渲染一个占位符，以确保与服务器渲染的内容一致
+    return <Skeleton className="w-28 h-8" />;
+  }
 
   if (editions.length < 2) {
     return null;
