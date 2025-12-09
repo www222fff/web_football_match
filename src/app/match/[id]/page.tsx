@@ -7,7 +7,27 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import { Suspense } from "react";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+    const editions = await getAvailableEditions();
+    const allParams: { id: string; edition?: string }[] = [];
+
+    for (const edition of editions) {
+        const matches = await getMatches(edition.id);
+        for (const match of matches) {
+            allParams.push({ id: match.id, edition: edition.id });
+        }
+    }
+    
+    const latestMatches = await getMatches(); // Gets latest edition by default
+    for (const match of latestMatches) {
+        // Ensure a param combination for the default route (latest edition) is generated
+        // Next.js will render /match/[id] and searchParams will be empty
+        allParams.push({ id: match.id, edition: undefined });
+    }
+
+    return allParams;
+}
+
 
 export default async function MatchPage({ params, searchParams }: { params: { id: string }, searchParams: { edition?: string } }) {
   const editionId = searchParams.edition;
@@ -33,7 +53,7 @@ export default async function MatchPage({ params, searchParams }: { params: { id
       <TopHeader title="比赛详情" />
       <div className="p-4 space-y-6">
         <Suspense fallback={<Card className="h-48 animate-pulse"></Card>}>
-          <MatchCard match={match} />
+          <MatchCard match={match} edition={editionId} />
         </Suspense>
         
         <Card>

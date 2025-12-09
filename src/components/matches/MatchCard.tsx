@@ -6,12 +6,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { type EnrichedMatch } from '@/lib/types';
 import { Calendar, MapPin, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { useSearchParams } from 'next/navigation';
 
-export function MatchCard({ match }: { match: EnrichedMatch }) {
+export function MatchCard({ match, edition }: { match: EnrichedMatch, edition?: string }) {
   const { team1, team2, date, time, venue, status, score, id } = match;
-  const searchParams = useSearchParams();
-  const edition = searchParams.get('edition');
   
   let href = `/match/${id}`;
   if (edition) {
