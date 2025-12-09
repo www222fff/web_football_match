@@ -4,7 +4,13 @@ import { PlayerList } from "./PlayerList";
 import { PlayerComparison } from "@/components/players/PlayerComparison";
 import { getPlayers, getAvailableEditions } from "@/lib/data";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  const editions = await getAvailableEditions();
+  const params = editions.map((edition) => ({
+    edition: edition.id,
+  }));
+  return [...params, {}];
+}
 
 export default async function PlayersPage({ searchParams }: { searchParams: { edition?: string } }) {
   const editionId = searchParams.edition;

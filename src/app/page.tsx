@@ -13,7 +13,15 @@ import {
 } from "@/components/ui/accordion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  const editions = await getAvailableEditions();
+  const params = editions.map((edition) => ({
+    edition: edition.id,
+  }));
+  // Add an empty object for the default route without search params
+  return [...params, {}];
+}
+
 
 export default async function Home({ searchParams }: { searchParams: { edition?: string } }) {
   const editionId = searchParams.edition;

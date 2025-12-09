@@ -3,7 +3,13 @@ import { TopHeader } from "@/components/layout/TopHeader";
 import { getMatches, getAvailableEditions } from "@/lib/data";
 import { type EnrichedMatch } from "@/lib/types";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  const editions = await getAvailableEditions();
+  const params = editions.map((edition) => ({
+    edition: edition.id,
+  }));
+  return [...params, {}];
+}
 
 export default async function ResultsPage({ searchParams }: { searchParams: { edition?: string } }) {
   const editionId = searchParams.edition;
