@@ -22,7 +22,7 @@ export default async function ResultsPage({ searchParams }: { searchParams: { ed
       <div className="p-4 space-y-4">
         {finishedMatches.length > 0 ? (
             finishedMatches.map(match => (
-                <MatchCard key={match.id} match={match} />
+                <MatchCard key={match.id} match={match} edition={editionId} />
             ))
         ) : (
             <p className="text-center text-muted-foreground mt-8">暂无已结束的比赛。</p>

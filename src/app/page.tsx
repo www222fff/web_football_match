@@ -48,7 +48,7 @@ export default async function Home({ searchParams }: { searchParams: { edition?:
               </Button>
             </div>
             {nextMatch ? (
-                <MatchCard match={nextMatch} />
+                <MatchCard match={nextMatch} edition={editionId} />
             ) : (
                 <Card className="flex items-center justify-center h-24">
                     <p className="text-muted-foreground">暂无即将开始的比赛</p>
@@ -66,7 +66,7 @@ export default async function Home({ searchParams }: { searchParams: { edition?:
               </Button>
             </div>
             {lastResult ? (
-                <MatchCard match={lastResult} />
+                <MatchCard match={lastResult} edition={editionId} />
             ) : (
                 <Card className="flex items-center justify-center h-24">
                     <p className="text-muted-foreground">暂无最新赛果</p>

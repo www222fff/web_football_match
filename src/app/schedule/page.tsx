@@ -24,7 +24,7 @@ export default async function SchedulePage({ searchParams }: { searchParams: { e
       <div className="p-4 space-y-4">
         {scheduledMatches.length > 0 ? (
             scheduledMatches.map(match => (
-                <MatchCard key={match.id} match={match} />
+                <MatchCard key={match.id} match={match} edition={editionId} />
             ))
         ) : (
             <p className="text-center text-muted-foreground mt-8">暂无即将开始的比赛。</p>
