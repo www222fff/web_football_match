@@ -19,11 +19,20 @@ export function BottomNav() {
   const edition = searchParams.get('edition');
 
   const createHref = (baseHref: string) => {
-    const params = new URLSearchParams();
+    const params = new URLSearchParams(searchParams.toString());
     if (edition) {
       params.set('edition', edition);
+    } else {
+      // If there's no edition in URL, we don't need to add it,
+      // as the app defaults to the latest.
+      params.delete('edition');
     }
     const queryString = params.toString();
+    // Only return the base href for the root path if no query string exists
+    // to avoid a trailing '?'
+    if (baseHref === '/' && !queryString) {
+        return baseHref;
+    }
     return queryString ? `${baseHref}?${queryString}` : baseHref;
   };
 
