@@ -5,9 +5,8 @@ import { getStandings, getAvailableEditions } from "@/lib/data";
 export async function generateStaticParams() {
   const editions = await getAvailableEditions();
   const params = editions.map(e => ({ edition: e.id }));
-  // Add a param for the default route (no query params)
-  params.push({} as any);
-  return params;
+  // Add an entry for the default path with no search params
+  return [{}, ...params];
 }
 
 export default async function StandingsPage({ searchParams }: { searchParams: { edition?: string } }) {
