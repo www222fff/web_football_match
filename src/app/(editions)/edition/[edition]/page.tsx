@@ -1,6 +1,6 @@
 import { MatchCard } from "@/components/matches/MatchCard";
 import { TopHeader } from "@/components/layout/TopHeader";
-import { getMatches } from "@/lib/data";
+import { getMatches, getAvailableEditions } from "@/lib/data";
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Info } from 'lucide-react';
@@ -13,8 +13,15 @@ import {
 } from "@/components/ui/accordion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default async function Home() {
-  const editionId = '7'; // Default edition for the root page
+export async function generateStaticParams() {
+  const editions = await getAvailableEditions();
+  return editions.map((edition) => ({
+    edition: edition.id,
+  }));
+}
+
+export default async function Home({ params }: { params: { edition: string } }) {
+  const editionId = params.edition;
   const allMatches: EnrichedMatch[] = await getMatches(editionId);
   const upcomingMatches = allMatches.filter(m => m.status === 'scheduled').sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   const latestResults = allMatches.filter(m => m.status === 'finished').sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -30,7 +37,7 @@ export default async function Home() {
             <div className="flex justify-between items-center mb-2">
               <h2 className="text-xl font-bold font-headline">即将开始</h2>
               <Button variant="ghost" size="sm" asChild>
-                <Link href="/schedule">
+                <Link href={`/edition/${editionId}/schedule`}>
                   查看全部 <ArrowRight className="ml-1 h-4 w-4" />
                 </Link>
               </Button>
@@ -48,7 +55,7 @@ export default async function Home() {
             <div className="flex justify-between items-center mb-2">
               <h2 className="text-xl font-bold font-headline">最新赛果</h2>
               <Button variant="ghost" size="sm" asChild>
-                <Link href="/results">
+                <Link href={`/edition/${editionId}/results`}>
                   查看全部 <ArrowRight className="ml-1 h-4 w-4" />
                 </Link>
               </Button>

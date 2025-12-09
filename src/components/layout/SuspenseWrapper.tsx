@@ -1,11 +1,12 @@
 'use client';
 
 import { Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 
 function Wrapper({ children }: { children: React.ReactNode }) {
-  // This is a dummy hook to trigger the Suspense fallback
-  useSearchParams();
+  // These hooks trigger the Suspense fallback on navigation
+  useParams();
+  usePathname();
   return <>{children}</>;
 }
 

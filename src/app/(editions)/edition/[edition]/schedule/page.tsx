@@ -1,10 +1,17 @@
 import { MatchCard } from "@/components/matches/MatchCard";
 import { TopHeader } from "@/components/layout/TopHeader";
-import { getMatches } from "@/lib/data";
+import { getMatches, getAvailableEditions } from "@/lib/data";
 import { type EnrichedMatch } from "@/lib/types";
 
-export default async function SchedulePage() {
-  const editionId = '7'; // Default edition
+export async function generateStaticParams() {
+  const editions = await getAvailableEditions();
+  return editions.map((edition) => ({
+    edition: edition.id,
+  }));
+}
+
+export default async function SchedulePage({ params }: { params: { edition: string } }) {
+  const editionId = params.edition;
   const allMatches: EnrichedMatch[] = await getMatches(editionId);
   const scheduledMatches = allMatches
     .filter(m => m.status === 'scheduled' || m.status === 'live')

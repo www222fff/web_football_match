@@ -1,18 +1,9 @@
 import { StandingsTable } from "@/components/standings/StandingsTable";
 import { TopHeader } from "@/components/layout/TopHeader";
-import { getStandings, getAvailableEditions } from "@/lib/data";
+import { getStandings } from "@/lib/data";
 
-export async function generateStaticParams() {
-  const editions = await getAvailableEditions();
-  const params = editions.map((edition) => ({
-    edition: edition.id,
-  }));
-  return [...params, {}];
-}
-
-export default async function StandingsPage({ searchParams }: { searchParams: { edition?: string } }) {
-  const editionId = searchParams.edition;
-  const standings = await getStandings(editionId);
+export default async function StandingsPage() {
+  const standings = await getStandings();
 
   return (
     <div className="flex flex-col">

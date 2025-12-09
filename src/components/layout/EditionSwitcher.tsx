@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useParams } from 'next/navigation';
 import { getAvailableEditions } from '@/lib/data';
 import {
   Select,
@@ -10,14 +10,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ChevronsUpDown } from 'lucide-react';
 import { Skeleton } from '../ui/skeleton';
 
 export function EditionSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const currentEditionId = searchParams.get('edition') || '7';
+  const params = useParams();
+  
+  const currentEditionId = (params.edition as string) || '7';
 
   const [editions, setEditions] = useState<{ id: string; name: string }[]>([]);
   const [currentEditionName, setCurrentEditionName] = useState('');
@@ -33,13 +33,20 @@ export function EditionSwitcher() {
   }, [currentEditionId]);
 
   const handleValueChange = (newEditionId: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set('edition', newEditionId);
-    router.push(`${pathname}?${params.toString()}`);
+    // We need to figure out the base path to redirect to.
+    // e.g. if we are on /edition/6/schedule, we want to go to /edition/7/schedule
+    let basePath = pathname.split('/').slice(3).join('/');
+    if (basePath === '') {
+        // This is the root page for an edition
+        router.push(`/edition/${newEditionId}`);
+    } else if (newEditionId === '7') { // If switching to latest, go to root path
+        router.push(`/${basePath}`);
+    } else {
+        router.push(`/edition/${newEditionId}/${basePath}`);
+    }
   };
 
   if (!isMounted) {
-    // 在客户端挂载完成前，渲染一个占位符，以确保与服务器渲染的内容一致
     return <Skeleton className="w-28 h-8" />;
   }
 

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useParams } from 'next/navigation';
 import { CalendarDays, Trophy, BarChart3, Users, Home } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -15,31 +15,35 @@ const navItems = [
 
 export function BottomNav() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const edition = searchParams.get('edition');
+  const params = useParams();
+  const edition = params.edition as string | undefined;
 
   const createHref = (baseHref: string) => {
-    const params = new URLSearchParams(searchParams.toString());
+    let finalHref = baseHref;
+
     if (edition) {
-      params.set('edition', edition);
-    } else {
-      // If there's no edition in URL, we don't need to add it,
-      // as the app defaults to the latest.
-      params.delete('edition');
+      if (baseHref === '/') {
+        finalHref = `/edition/${edition}`;
+      } else {
+        finalHref = `/edition/${edition}${baseHref}`;
+      }
     }
-    const queryString = params.toString();
-    // Only return the base href for the root path if no query string exists
-    // to avoid a trailing '?'
-    if (baseHref === '/' && !queryString) {
-        return baseHref;
-    }
-    return queryString ? `${baseHref}?${queryString}` : baseHref;
+    
+    return finalHref;
   };
+
+  const isActive = (baseHref: string) => {
+    // For homepage, it can be '/' or '/edition/...'
+    if (baseHref === '/') {
+      return pathname === '/' || /^\/edition\/\d+$/.test(pathname);
+    }
+    // For other pages, check if the pathname ends with the base href
+    return pathname.endsWith(baseHref);
+  }
 
   return (
     <div className="absolute bottom-0 left-0 right-0 h-16 bg-card/80 backdrop-blur-sm border-t border-border flex justify-around items-center">
       {navItems.map((item) => {
-        const isActive = (pathname === '/' && item.href === '/') || (pathname.startsWith(item.href) && item.href !== '/');
         const href = createHref(item.href);
         return (
           <Link
@@ -47,7 +51,7 @@ export function BottomNav() {
             href={href}
             className={cn(
               "flex flex-col items-center justify-center text-muted-foreground w-full h-full transition-colors duration-200",
-              isActive ? "text-primary font-bold" : "hover:text-primary/80"
+              isActive(item.href) ? "text-primary font-bold" : "hover:text-primary/80"
             )}
           >
             <item.icon className="h-6 w-6" />

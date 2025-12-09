@@ -7,14 +7,10 @@ import { type EnrichedMatch } from '@/lib/types';
 import { Calendar, MapPin, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
-export function MatchCard({ match, edition }: { match: EnrichedMatch, edition?: string }) {
+export function MatchCard({ match, edition }: { match: EnrichedMatch, edition: string }) {
   const { team1, team2, date, time, venue, status, score, id } = match;
   
-  let href = `/match/${id}`;
-  if (edition) {
-    href += `?edition=${edition}`;
-  }
-
+  const href = `/edition/${edition}/match/${id}`;
 
   const formatDate = new Date(date).toLocaleDateString('zh-CN', { month: 'long', day: 'numeric', weekday: 'long' });
 

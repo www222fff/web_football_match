@@ -1,11 +1,19 @@
 import { TopHeader } from "@/components/layout/TopHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PlayerList } from "./PlayerList";
+import { PlayerList } from "@/app/players/PlayerList";
 import { PlayerComparison } from "@/components/players/PlayerComparison";
-import { getPlayers } from "@/lib/data";
+import { getPlayers, getAvailableEditions } from "@/lib/data";
 
-export default async function PlayersPage() {
-  const allPlayers = await getPlayers();
+export async function generateStaticParams() {
+  const editions = await getAvailableEditions();
+  return editions.map((edition) => ({
+    edition: edition.id,
+  }));
+}
+
+export default async function PlayersPage({ params }: { params: { edition: string } }) {
+  const editionId = params.edition;
+  const allPlayers = await getPlayers(editionId);
 
   return (
     <div className="flex flex-col h-full">

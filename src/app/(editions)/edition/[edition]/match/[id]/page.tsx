@@ -9,7 +9,7 @@ import { Suspense } from "react";
 
 export async function generateStaticParams() {
     const editions = await getAvailableEditions();
-    const allParams: { id: string; edition?: string }[] = [];
+    const allParams: { id: string; edition: string }[] = [];
 
     for (const edition of editions) {
         const matches = await getMatches(edition.id);
@@ -18,19 +18,12 @@ export async function generateStaticParams() {
         }
     }
     
-    const latestMatches = await getMatches(); // Gets latest edition by default
-    for (const match of latestMatches) {
-        // Ensure a param combination for the default route (latest edition) is generated
-        // Next.js will render /match/[id] and searchParams will be empty
-        allParams.push({ id: match.id, edition: undefined });
-    }
-
     return allParams;
 }
 
 
-export default async function MatchPage({ params, searchParams }: { params: { id: string }, searchParams: { edition?: string } }) {
-  const editionId = searchParams.edition;
+export default async function MatchPage({ params }: { params: { id: string, edition: string } }) {
+  const editionId = params.edition;
   const match = await getMatch(params.id, editionId);
 
   if (!match) {
