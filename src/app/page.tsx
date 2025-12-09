@@ -3,8 +3,15 @@ import { TopHeader } from "@/components/layout/TopHeader";
 import { getMatches } from "@/lib/data";
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Info } from 'lucide-react';
 import { type EnrichedMatch } from "@/lib/types";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function Home() {
   const allMatches: EnrichedMatch[] = await getMatches();
@@ -45,6 +52,49 @@ export default async function Home() {
             <MatchCard match={lastResult} />
           </section>
         )}
+
+        <section>
+           <Card>
+            <CardHeader className="flex-row items-center gap-2 space-y-0">
+                <Info className="h-5 w-5 text-primary"/>
+                <CardTitle className="text-xl font-bold font-headline">赛事信息</CardTitle>
+            </CardHeader>
+            <CardContent className="pt-0 px-2 sm:px-4">
+                <Accordion type="single" collapsible className="w-full">
+                    <AccordionItem value="item-1">
+                        <AccordionTrigger className="px-4">赛事介绍</AccordionTrigger>
+                        <AccordionContent className="px-4 text-muted-foreground">
+                        欢迎来到第七届全国高校青岛校友足球赛！本赛事旨在通过足球这项充满激情与活力的运动，联络校友情谊，促进各高校校友之间的交流与合作。我们倡导“友谊第一，比赛第二”的体育精神，希望大家在绿茵场上尽情挥洒汗水，享受足球带来的快乐。
+                        </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-2">
+                        <AccordionTrigger className="px-4">赛事须知</AccordionTrigger>
+                        <AccordionContent className="px-4 text-muted-foreground">
+                        <ul className="list-disc pl-5 space-y-2">
+                            <li>所有参赛队员必须为各高校正式校友，并已完成赛事注册。</li>
+                            <li>请各球队提前30分钟到达比赛场地进行热身和检录。</li>
+                            <li>比赛期间，请尊重裁判判罚，服从组委会统一安排。</li>
+                            <li>注意人身及财产安全，比赛中请注意自我保护，避免受伤。</li>
+                            <li>保持场地卫生，请勿乱扔垃圾。文明观赛，为所有球队加油。</li>
+                        </ul>
+                        </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-3" className="border-b-0">
+                        <AccordionTrigger className="px-4">赛事规则</AccordionTrigger>
+                        <AccordionContent className="px-4 text-muted-foreground">
+                        <ul className="list-disc pl-5 space-y-2">
+                            <li>比赛采用8人制足球规则，上下半场各40分钟。</li>
+                            <li>小组赛阶段，胜一场积3分，平一场积1分，负一场积0分。</li>
+                            <li>红黄牌规则：累计两张黄牌停赛一场，直接红牌停赛一场。</li>
+                            <li>换人名额：每场比赛每队可替换5名球员。</li>
+                            <li>若对比赛结果有异议，请在赛后2小时内由领队向组委会提出书面申诉。</li>
+                        </ul>
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+            </CardContent>
+           </Card>
+        </section>
       </div>
     </div>
   );
