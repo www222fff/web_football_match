@@ -1,5 +1,6 @@
 'use client';
 import { BottomNav } from '@/components/layout/BottomNav';
+import { Suspense } from 'react';
 
 export function AppWrapper({ children }: { children: React.ReactNode }) {
   return (
@@ -13,7 +14,9 @@ export function AppWrapper({ children }: { children: React.ReactNode }) {
         <main className="flex-1 overflow-y-auto pb-20">
           {children}
         </main>
-        <BottomNav />
+        <Suspense fallback={null}>
+            <BottomNav />
+        </Suspense>
       </div>
     </div>
   );
