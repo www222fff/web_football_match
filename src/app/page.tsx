@@ -13,13 +13,16 @@ import {
 } from "@/components/ui/accordion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default async function Home() {
-  const allMatches: EnrichedMatch[] = await getMatches();
+export default async function Home({ searchParams }: { searchParams: { edition?: string } }) {
+  const editionId = searchParams.edition;
+  const allMatches: EnrichedMatch[] = await getMatches(editionId);
   const upcomingMatches = allMatches.filter(m => m.status === 'scheduled').sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   const latestResults = allMatches.filter(m => m.status === 'finished').sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   const nextMatch = upcomingMatches[0];
   const lastResult = latestResults[0];
+
+  const editionParams = editionId ? `?edition=${editionId}` : '';
 
   return (
     <div className="flex flex-col">
@@ -30,7 +33,7 @@ export default async function Home() {
             <div className="flex justify-between items-center mb-2">
               <h2 className="text-xl font-bold font-headline">即将开始</h2>
               <Button variant="ghost" size="sm" asChild>
-                <Link href="/schedule">
+                <Link href={`/schedule${editionParams}`}>
                   查看全部 <ArrowRight className="ml-1 h-4 w-4" />
                 </Link>
               </Button>
@@ -44,7 +47,7 @@ export default async function Home() {
             <div className="flex justify-between items-center mb-2">
               <h2 className="text-xl font-bold font-headline">最新赛果</h2>
               <Button variant="ghost" size="sm" asChild>
-                <Link href="/results">
+                <Link href={`/results${editionParams}`}>
                   查看全部 <ArrowRight className="ml-1 h-4 w-4" />
                 </Link>
               </Button>

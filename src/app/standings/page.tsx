@@ -2,8 +2,9 @@ import { StandingsTable } from "@/components/standings/StandingsTable";
 import { TopHeader } from "@/components/layout/TopHeader";
 import { getStandings } from "@/lib/data";
 
-export default async function StandingsPage() {
-  const standings = await getStandings();
+export default async function StandingsPage({ searchParams }: { searchParams: { edition?: string } }) {
+  const editionId = searchParams.edition;
+  const standings = await getStandings(editionId);
 
   return (
     <div className="flex flex-col">

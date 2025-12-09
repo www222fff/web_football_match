@@ -4,8 +4,9 @@ import { PlayerList } from "./PlayerList";
 import { PlayerComparison } from "@/components/players/PlayerComparison";
 import { getPlayers } from "@/lib/data";
 
-export default async function PlayersPage() {
-  const allPlayers = await getPlayers();
+export default async function PlayersPage({ searchParams }: { searchParams: { edition?: string } }) {
+  const editionId = searchParams.edition;
+  const allPlayers = await getPlayers(editionId);
 
   return (
     <div className="flex flex-col h-full">

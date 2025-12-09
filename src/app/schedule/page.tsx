@@ -3,8 +3,9 @@ import { TopHeader } from "@/components/layout/TopHeader";
 import { getMatches } from "@/lib/data";
 import { type EnrichedMatch } from "@/lib/types";
 
-export default async function SchedulePage() {
-  const allMatches: EnrichedMatch[] = await getMatches();
+export default async function SchedulePage({ searchParams }: { searchParams: { edition?: string } }) {
+  const editionId = searchParams.edition;
+  const allMatches: EnrichedMatch[] = await getMatches(editionId);
   const scheduledMatches = allMatches
     .filter(m => m.status === 'scheduled' || m.status === 'live')
     .sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime());

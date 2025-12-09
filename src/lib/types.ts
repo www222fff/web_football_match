@@ -65,3 +65,11 @@ export type Standing = {
   goalDifference: number;
   points: number;
 };
+
+export type TournamentEdition = {
+  id: string;
+  name: string;
+  teams: Team[];
+  players: Player[];
+  matches: Match[];
+}
