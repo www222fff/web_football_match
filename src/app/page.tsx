@@ -15,7 +15,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export async function generateStaticParams() {
   const editions = await getAvailableEditions();
-  return editions.map(e => ({ edition: e.id }));
+  const params = editions.map(e => ({ edition: e.id }));
+  // Add a param for the default route (no edition)
+  params.push({ edition: undefined! });
+  return params;
 }
 
 export default async function Home({ searchParams }: { searchParams: { edition?: string } }) {
