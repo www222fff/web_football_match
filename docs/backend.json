@@ -1,270 +1,95 @@
 {
   "entities": {
-    "MatchSchedule": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "MatchSchedule",
+    "Tournament": {
+      "title": "Tournament",
       "type": "object",
-      "description": "Represents the schedule for a specific match.",
+      "description": "Represents a football tournament edition.",
       "properties": {
-        "id": {
+        "name": {
           "type": "string",
-          "description": "Unique identifier for the match schedule entry."
+          "description": "Name of the tournament edition (e.g., '第七届')."
         },
-        "team1Id": {
-          "type": "string",
-          "description": "Reference to Team 1. (Relationship: Team 1:N MatchSchedule)"
-        },
-        "team2Id": {
-          "type": "string",
-          "description": "Reference to Team 2. (Relationship: Team 1:N MatchSchedule)"
-        },
-        "matchDateTime": {
-          "type": "string",
-          "description": "Date and time of the match.",
-          "format": "date-time"
-        },
-        "location": {
-          "type": "string",
-          "description": "Location where the match will be held."
-        },
-        "tournamentId": {
-          "type": "string",
-          "description": "Reference to Tournament. (Relationship: Tournament 1:N MatchSchedule)"
+        "year": {
+          "type": "number",
+          "description": "The year the tournament is held."
         }
       },
-      "required": [
-        "id",
-        "team1Id",
-        "team2Id",
-        "matchDateTime",
-        "location",
-        "tournamentId"
-      ]
-    },
-    "MatchResult": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "MatchResult",
-      "type": "object",
-      "description": "Represents the results of a completed match.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the match result entry."
-        },
-        "matchScheduleId": {
-          "type": "string",
-          "description": "Reference to MatchSchedule. (Relationship: MatchSchedule 1:1 MatchResult)"
-        },
-        "team1Score": {
-          "type": "number",
-          "description": "Score of Team 1 in the match."
-        },
-        "team2Score": {
-          "type": "number",
-          "description": "Score of Team 2 in the match."
-        },
-        "goalScorerIds": {
-          "type": "array",
-          "description": "References to Players who scored goals in this match. (Relationship: Player N:N MatchResult)",
-          "items": {
-            "type": "string"
-          }
-        },
-        "yellowCardIds": {
-          "type": "array",
-          "description": "References to Players who received yellow cards in this match. (Relationship: Player N:N MatchResult)",
-          "items": {
-            "type": "string"
-          }
-        },
-        "redCardIds": {
-          "type": "array",
-          "description": "References to Players who received red cards in this match. (Relationship: Player N:N MatchResult)",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": [
-        "id",
-        "matchScheduleId",
-        "team1Score",
-        "team2Score"
-      ]
+      "required": ["name", "year"]
     },
     "Team": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Team",
       "type": "object",
       "description": "Represents a participating team.",
       "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the team."
-        },
-        "name": {
-          "type": "string",
-          "description": "Name of the team."
-        },
-        "logoUrl": {
-          "type": "string",
-          "description": "URL of the team's logo.",
-          "format": "uri"
-        },
-        "coach": {
-          "type": "string",
-          "description": "Name of the team's coach."
-        },
-        "playerIds": {
-          "type": "array",
-          "description": "References to Players in the team. (Relationship: Team 1:N Player)",
-          "items": {
-            "type": "string"
-          }
-        }
+        "name": { "type": "string", "description": "Name of the team." },
+        "logoImageId": { "type": "string", "description": "ID for the team's logo from placeholder images." },
+        "coach": { "type": "string", "description": "Name of the team's coach." },
+        "tournamentId": { "type": "string", "description": "The ID of the tournament this team belongs to." }
       },
-      "required": [
-        "id",
-        "name",
-        "logoUrl",
-        "coach"
-      ]
+      "required": ["name", "logoImageId", "coach", "tournamentId"]
     },
     "Player": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Player",
       "type": "object",
       "description": "Represents a player in a team.",
       "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the player."
-        },
-        "name": {
-          "type": "string",
-          "description": "Name of the player."
-        },
-        "position": {
-          "type": "string",
-          "description": "Player's position on the field."
-        },
-        "dateOfBirth": {
-          "type": "string",
-          "description": "Player's date of birth.",
-          "format": "date-time"
-        },
-        "teamId": {
-          "type": "string",
-          "description": "Reference to Team. (Relationship: Team 1:N Player)"
-        },
-        "statistics": {
-          "type": "string",
-          "description": "Player's statistics."
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "position",
-        "dateOfBirth",
-        "teamId"
-      ]
-    },
-    "Ranking": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Ranking",
-      "type": "object",
-      "description": "Represents a team's ranking in a tournament.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the ranking entry."
-        },
-        "tournamentId": {
-          "type": "string",
-          "description": "Reference to Tournament. (Relationship: Tournament 1:N Ranking)"
-        },
-        "teamId": {
-          "type": "string",
-          "description": "Reference to Team. (Relationship: Team 1:N Ranking)"
-        },
-        "rank": {
-          "type": "number",
-          "description": "The team's rank in the tournament."
-        },
-        "points": {
-          "type": "number",
-          "description": "The team's points in the tournament."
-        },
-        "wins": {
-          "type": "number",
-          "description": "Number of wins."
-        },
-        "losses": {
-          "type": "number",
-          "description": "Number of losses."
-        },
-        "draws": {
-          "type": "number",
-          "description": "Number of draws."
-        }
-      },
-      "required": [
-        "id",
-        "tournamentId",
-        "teamId",
-        "rank",
-        "points",
-        "wins",
-        "losses",
-        "draws"
-      ]
-    },
-    "Tournament": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Tournament",
-      "type": "object",
-      "description": "Represents a football tournament.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the tournament."
-        },
-        "name": {
-          "type": "string",
-          "description": "Name of the tournament."
-        },
-        "startDate": {
-          "type": "string",
-          "description": "Start date of the tournament.",
-          "format": "date-time"
-        },
-        "endDate": {
-          "type": "string",
-          "description": "End date of the tournament.",
-          "format": "date-time"
-        },
-        "teamIds": {
-          "type": "array",
-          "description": "References to Teams participating in the tournament. (Relationship: Tournament N:N Team)",
-          "items": {
-            "type": "string"
+        "name": { "type": "string", "description": "Name of the player." },
+        "position": { "type": "string", "description": "Player's position." },
+        "number": { "type": "number", "description": "Player's jersey number." },
+        "imageId": { "type": "string", "description": "ID for the player's photo from placeholder images." },
+        "teamId": { "type": "string", "description": "Reference to the Player's Team." },
+        "stats": {
+          "type": "object",
+          "properties": {
+            "goals": { "type": "number" },
+            "assists": { "type": "number" },
+            "gamesPlayed": { "type": "number" },
+            "yellowCards": { "type": "number" },
+            "redCards": { "type": "number" },
+            "shotsPerGame": { "type": "number" },
+            "passSuccessRate": { "type": "number" }
           }
         }
       },
-      "required": [
-        "id",
-        "name",
-        "startDate",
-        "endDate"
-      ]
+      "required": ["name", "position", "number", "imageId", "teamId", "stats"]
+    },
+    "MatchSchedule": {
+      "title": "MatchSchedule",
+      "type": "object",
+      "description": "Represents the schedule for a specific match.",
+      "properties": {
+        "team1Id": { "type": "string" },
+        "team2Id": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "time": { "type": "string" },
+        "venue": { "type": "string" },
+        "status": { "type": "string", "enum": ["scheduled", "live", "finished"] },
+        "tournamentId": { "type": "string" },
+        "score": {
+          "type": "object",
+          "properties": {
+            "team1": { "type": "number" },
+            "team2": { "type": "number" }
+          }
+        }
+      },
+      "required": ["team1Id", "team2Id", "date", "time", "venue", "status", "tournamentId"]
+    },
+    "MatchEvent": {
+        "title": "MatchEvent",
+        "type": "object",
+        "description": "Represents a single event within a match.",
+        "properties": {
+            "minute": { "type": "number" },
+            "type": { "type": "string", "enum": ["goal", "yellow-card", "red-card"] },
+            "playerId": { "type": "string" },
+            "teamId": { "type": "string" }
+        },
+        "required": ["minute", "type", "playerId", "teamId"]
     }
   },
   "auth": {
-    "providers": [
-      "password",
-      "anonymous"
-    ]
+    "providers": ["anonymous"]
   },
   "firestore": {
     "structure": [
@@ -272,99 +97,43 @@
         "path": "/tournaments/{tournamentId}",
         "definition": {
           "entityName": "Tournament",
-          "schema": {
-            "$ref": "#/backend/entities/Tournament"
-          },
-          "description": "Stores tournament information.",
-          "params": [
-            {
-              "name": "tournamentId",
-              "description": "Unique identifier for the tournament."
-            }
-          ]
+          "schema": { "$ref": "#/backend/entities/Tournament" },
+          "description": "Stores high-level information for each tournament edition."
         }
       },
       {
         "path": "/teams/{teamId}",
         "definition": {
           "entityName": "Team",
-          "schema": {
-            "$ref": "#/backend/entities/Team"
-          },
-          "description": "Stores team details.",
-          "params": [
-            {
-              "name": "teamId",
-              "description": "Unique identifier for the team."
-            }
-          ]
+          "schema": { "$ref": "#/backend/entities/Team" },
+          "description": "Stores all teams across all tournaments. Each team document includes a 'tournamentId' to scope it to a specific edition."
         }
       },
       {
         "path": "/players/{playerId}",
         "definition": {
           "entityName": "Player",
-          "schema": {
-            "$ref": "#/backend/entities/Player"
-          },
-          "description": "Stores individual player information.",
-          "params": [
-            {
-              "name": "playerId",
-              "description": "Unique identifier for the player."
-            }
-          ]
+          "schema": { "$ref": "#/backend/entities/Player" },
+          "description": "Stores all players. Each player has a 'teamId' which links them to a team, and through the team, to a tournament."
         }
       },
       {
         "path": "/match_schedules/{matchScheduleId}",
         "definition": {
           "entityName": "MatchSchedule",
-          "schema": {
-            "$ref": "#/backend/entities/MatchSchedule"
-          },
-          "description": "Stores match schedules.",
-          "params": [
-            {
-              "name": "matchScheduleId",
-              "description": "Unique identifier for the match schedule."
-            }
-          ]
+          "schema": { "$ref": "#/backend/entities/MatchSchedule" },
+          "description": "Stores all matches. Each match has a 'tournamentId'."
         }
       },
       {
-        "path": "/match_results/{matchResultId}",
-        "definition": {
-          "entityName": "MatchResult",
-          "schema": {
-            "$ref": "#/backend/entities/MatchResult"
-          },
-          "description": "Stores match results.",
-          "params": [
-            {
-              "name": "matchResultId",
-              "description": "Unique identifier for the match result."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/rankings/{rankingId}",
-        "definition": {
-          "entityName": "Ranking",
-          "schema": {
-            "$ref": "#/backend/entities/Ranking"
-          },
-          "description": "Stores ranking information.",
-          "params": [
-            {
-              "name": "rankingId",
-              "description": "Unique identifier for the ranking."
-            }
-          ]
-        }
+          "path": "/match_schedules/{matchScheduleId}/events/{eventId}",
+          "definition": {
+            "entityName": "MatchEvent",
+            "schema": { "$ref": "#/backend/entities/MatchEvent" },
+            "description": "Subcollection for events within a specific match."
+          }
       }
     ],
-    "reasoning": "The Firestore data structure is designed to manage football tournament data, including teams, players, matches, and rankings. It prioritizes authorization independence by avoiding hierarchical `get()` calls in security rules. Data is structured to support secure `list` operations and maintain data integrity.\n\n**Authorization Independence and QAPs:**\n\n*   There isn't specific user-owned data requiring complex authorization. Thus, a simpler structure focused on organizing the data around tournaments, teams, and matches is used. This reduces the need for denormalization solely for authorization. The structure naturally allows for listing operations scoped to specific tournaments or teams, which satisfies QAPs by making listing rules straightforward and efficient.\n*   Since all data is relatively public (match schedules, results, team info), complex access controls aren't needed. If more granular control is required (e.g., private tournament data for organizers only), a `members` map could be added to the Tournament document and denormalized into subcollections, but this is not implemented as the requirements suggest a public-facing application.\n\n**Structure Summary:**\n\n*   `/tournaments/{tournamentId}`: Stores general tournament information.\n*   `/teams/{teamId}`: Stores team details.\n*   `/players/{playerId}`: Stores individual player information.\n*   `/match_schedules/{matchScheduleId}`: Stores match schedule details related to tournaments.\n*   `/match_results/{matchResultId}`: Stores match results related to match schedules.\n*   `/rankings/{rankingId}`: Stores ranking information related to specific tournaments and teams."
+    "reasoning": "This structure supports multiple tournament editions. Top-level collections for 'teams', 'players', and 'match_schedules' contain a 'tournamentId' field to allow for efficient querying of data for a specific edition, while still maintaining a flat hierarchy. Match events are stored in a subcollection under each match for clear organization."
   }
 }

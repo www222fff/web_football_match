@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { AppWrapper } from '@/components/layout/AppWrapper';
 import { Toaster } from "@/components/ui/toaster";
+import { FirebaseClientProvider } from '@/firebase';
 
 export const metadata: Metadata = {
   title: '第七届全国高校青岛校友足球赛',
@@ -21,9 +22,11 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased">
-        <AppWrapper>
-          {children}
-        </AppWrapper>
+        <FirebaseClientProvider>
+          <AppWrapper>
+            {children}
+          </AppWrapper>
+        </FirebaseClientProvider>
         <Toaster />
       </body>
     </html>

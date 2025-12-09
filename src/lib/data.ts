@@ -2,10 +2,15 @@ import { type Team, type Player, type Match, type Standing, type EnrichedMatch, 
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import edition7Data from '@/data/edition-7.json';
 import edition6Data from '@/data/edition-6.json';
+import { getDocs, collection, doc, getDoc, query, where } from 'firebase/firestore';
+import { getSdks } from '@/firebase';
+
+const dataSource = process.env.NEXT_PUBLIC_DATA_SOURCE || 'local';
 
 const getImage = (id: string) => PlaceHolderImages.find(img => img.id === id)?.imageUrl || '';
 
-const processEditionData = (editionData: any): TournamentEdition => {
+// --- Local Data (JSON) ---
+const processLocalEditionData = (editionData: any): TournamentEdition => {
     const players: Player[] = editionData.players.map((p: any) => ({ ...p, imageUrl: getImage(p.imageId) }));
     
     const teams: Team[] = editionData.teams.map((t: any) => ({
@@ -29,17 +34,95 @@ const processEditionData = (editionData: any): TournamentEdition => {
     };
 };
 
-const tournamentData: { [key: string]: TournamentEdition } = {
-    '7': processEditionData(edition7Data),
-    '6': processEditionData(edition6Data),
+const localTournamentData: { [key: string]: TournamentEdition } = {
+    '7': processLocalEditionData(edition7Data),
+    '6': processLocalEditionData(edition6Data),
 };
 
-const getEditionData = (editionId: string = '7'): TournamentEdition => {
-    return tournamentData[editionId] || tournamentData['7'];
+const getLocalEditionData = (editionId: string = '7'): TournamentEdition => {
+    return localTournamentData[editionId] || localTournamentData['7'];
 }
 
+// --- Remote Data (Firestore) ---
+
+const getRemoteEditionData = async (editionId: string = '7'): Promise<TournamentEdition> => {
+    const { firestore } = getSdks();
+    
+    const editionRef = doc(firestore, 'tournaments', editionId);
+    const editionSnap = await getDoc(editionRef);
+
+    if (!editionSnap.exists()) {
+        console.error(`Edition ${editionId} not found in Firestore.`);
+        return { id: editionId, name: '', year: 0, teams: [], players: [], matches: [] };
+    }
+
+    const editionData = editionSnap.data();
+
+    // Fetch teams for the edition
+    const teamsQuery = query(collection(firestore, 'teams'), where('tournamentId', '==', editionId));
+    const teamsSnap = await getDocs(teamsQuery);
+    const teams: Team[] = teamsSnap.docs.map(doc => ({ id: doc.id, ...doc.data(), logoUrl: getImage(doc.data().logoImageId), players: [] } as Team));
+
+    // Fetch players for all teams in the edition
+    const allPlayers: Player[] = [];
+    for (const team of teams) {
+        const playersQuery = query(collection(firestore, 'players'), where('teamId', '==', team.id));
+        const playersSnap = await getDocs(playersQuery);
+        const teamPlayers = playersSnap.docs.map(doc => ({ id: doc.id, ...doc.data(), imageUrl: getImage(doc.data().imageId) } as Player));
+        allPlayers.push(...teamPlayers);
+        const teamInList = teams.find(t => t.id === team.id);
+        if (teamInList) {
+            teamInList.players = teamPlayers;
+        }
+    }
+    
+    // Fetch matches for the edition
+    const matchesQuery = query(collection(firestore, 'match_schedules'), where('tournamentId', '==', editionId));
+    const matchesSnap = await getDocs(matchesQuery);
+
+    const matches: Match[] = [];
+    for (const matchDoc of matchesSnap.docs) {
+        const matchData = matchDoc.data();
+
+        // Fetch events for each match
+        const eventsQuery = query(collection(firestore, `match_schedules/${matchDoc.id}/events`));
+        const eventsSnap = await getDocs(eventsQuery);
+        const events: MatchEvent[] = eventsSnap.docs.map(eventDoc => eventDoc.data() as MatchEvent);
+        
+        matches.push({ id: matchDoc.id, ...matchData, events } as Match);
+    }
+    
+    return {
+        id: editionId,
+        name: editionData.name,
+        year: editionData.year,
+        teams,
+        players: allPlayers,
+        matches,
+    };
+};
+
+const getEditionData = async (editionId: string = '7'): Promise<TournamentEdition> => {
+    if (dataSource === 'remote') {
+        return getRemoteEditionData(editionId);
+    }
+    return getLocalEditionData(editionId);
+}
+
+
+// --- Public API ---
+
 export const getAvailableEditions = async (): Promise<{ id: string; name: string }[]> => {
-    const editions = Object.values(tournamentData).map(e => ({
+    if (dataSource === 'remote') {
+        const { firestore } = getSdks();
+        const editionsSnap = await getDocs(collection(firestore, 'tournaments'));
+        const editions = editionsSnap.docs.map(doc => ({
+            id: doc.id,
+            name: `${doc.data().year}年 ${doc.data().name}`
+        })).sort((a,b) => parseInt(b.id) - parseInt(a.id));
+         return new Promise(resolve => setTimeout(() => resolve(editions), 50));
+    }
+    const editions = Object.values(localTournamentData).map(e => ({
         id: e.id,
         name: `${e.year}年 ${e.name}`
     })).sort((a,b) => parseInt(b.id) - parseInt(a.id));
@@ -47,15 +130,17 @@ export const getAvailableEditions = async (): Promise<{ id: string; name: string
 }
 
 export const getTeams = async (editionId?: string): Promise<Team[]> => {
-  return new Promise(resolve => setTimeout(() => resolve(getEditionData(editionId).teams), 100));
+    const edition = await getEditionData(editionId);
+    return new Promise(resolve => setTimeout(() => resolve(edition.teams), 100));
 };
 
 export const getPlayers = async (editionId?: string): Promise<Player[]> => {
-    return new Promise(resolve => setTimeout(() => resolve(getEditionData(editionId).players), 100));
+    const edition = await getEditionData(editionId);
+    return new Promise(resolve => setTimeout(() => resolve(edition.players), 100));
 };
 
 export const getMatches = async (editionId?: string): Promise<EnrichedMatch[]> => {
-  const edition = getEditionData(editionId);
+  const edition = await getEditionData(editionId);
   const enrichedMatches = edition.matches.map(match => {
     const team1 = edition.teams.find(t => t.id === match.team1Id)!;
     const team2 = edition.teams.find(t => t.id === match.team2Id)!;
@@ -74,7 +159,7 @@ export const getMatch = async (matchId: string, editionId?: string): Promise<Enr
 }
 
 export const getStandings = async (editionId?: string): Promise<Standing[]> => {
-    const edition = getEditionData(editionId);
+    const edition = await getEditionData(editionId);
 
     let standings: Standing[] = edition.teams.map((team) => ({
         rank: 0,
