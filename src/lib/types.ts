@@ -69,6 +69,7 @@ export type Standing = {
 export type TournamentEdition = {
   id: string;
   name: string;
+  year: number;
   teams: Team[];
   players: Player[];
   matches: Match[];

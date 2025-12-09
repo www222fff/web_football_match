@@ -19,10 +19,15 @@ export function EditionSwitcher() {
   const currentEditionId = searchParams.get('edition') || '7';
 
   const [editions, setEditions] = useState<{ id: string; name: string }[]>([]);
+  const [currentEditionName, setCurrentEditionName] = useState('');
 
   useEffect(() => {
-    getAvailableEditions().then(setEditions);
-  }, []);
+    getAvailableEditions().then(availableEditions => {
+        setEditions(availableEditions);
+        const current = availableEditions.find(e => e.id === currentEditionId);
+        setCurrentEditionName(current?.name || '');
+    });
+  }, [currentEditionId]);
 
   const handleValueChange = (newEditionId: string) => {
     const params = new URLSearchParams(searchParams);
@@ -37,7 +42,9 @@ export function EditionSwitcher() {
   return (
     <Select value={currentEditionId} onValueChange={handleValueChange}>
       <SelectTrigger className="w-auto h-8 text-xs gap-1 border-0 bg-transparent focus:ring-0 focus:ring-offset-0">
-        <SelectValue placeholder="选择赛事" />
+        <SelectValue placeholder="选择赛事">
+         {currentEditionName}
+        </SelectValue>
       </SelectTrigger>
       <SelectContent>
         {editions.map(edition => (

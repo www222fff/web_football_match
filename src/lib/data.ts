@@ -52,6 +52,7 @@ for (const editionId in editions) {
     tournamentData[editionId] = {
         id: editionId,
         name: editions[editionId].name,
+        year: editions[editionId].year,
         teams,
         players,
         matches,
@@ -63,7 +64,7 @@ const getEditionData = (editionId: string = '7'): TournamentEdition => {
 }
 
 export const getAvailableEditions = async (): Promise<{ id: string; name: string }[]> => {
-    return new Promise(resolve => setTimeout(() => resolve(Object.keys(editions).map(id => ({ id, name: editions[id].name }))), 50));
+    return new Promise(resolve => setTimeout(() => resolve(Object.keys(editions).map(id => ({ id, name: `${editions[id].year}年 ${editions[id].name}` }))), 50));
 }
 
 export const getTeams = async (editionId?: string): Promise<Team[]> => {
