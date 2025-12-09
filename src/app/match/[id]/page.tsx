@@ -10,23 +10,25 @@ import { Suspense } from "react";
 export async function generateStaticParams() {
   const allEditions = await getAvailableEditions();
   
-  const params: {id: string, edition: string}[] = [];
+  const params: {id: string, edition?: string}[] = [];
 
   for (const edition of allEditions) {
     const matches = await getMatches(edition.id);
     matches.forEach(match => {
+        // Param for paths like /match/m1?edition=7
         params.push({ id: match.id, edition: edition.id });
     });
   }
  
-  // Also generate for default (no edition param)
-  const defaultMatches = await getMatches();
+  // Also generate for default (no edition param), which uses the latest edition
+  const defaultMatches = await getMatches(); // Gets latest by default
    defaultMatches.forEach(match => {
-        params.push({ id: match.id, edition: undefined as any });
+        // Param for paths like /match/m1
+        params.push({ id: match.id });
     });
 
 
-  return params;
+  return params.map(p => ({ id: p.id })); // Return only the `id` part for the path param
 }
 
 export default async function MatchPage({ params, searchParams }: { params: { id: string }, searchParams: { edition?: string } }) {
