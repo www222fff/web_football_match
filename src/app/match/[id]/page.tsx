@@ -8,31 +8,43 @@ import { AlertCircle } from "lucide-react";
 import { Suspense } from "react";
 
 export async function generateStaticParams() {
-  // This function needs to generate all possible `id` params for the match pages.
-  // Since matches can be accessed with or without an `edition` search param,
-  // we just need to ensure we generate a path for every single match ID across all editions.
   const allEditions = await getAvailableEditions();
-  let allMatchIds = new Set<string>();
+  const allParams = new Set<string>();
 
-  // Collect all match IDs from all editions
-  for (const edition of allEditions) {
-    const matches = await getMatches(edition.id);
+  // Helper function to process matches for an edition
+  const processMatches = async (editionId?: string) => {
+    const matches = await getMatches(editionId);
     matches.forEach(match => {
-        allMatchIds.add(match.id);
+      const param = JSON.stringify({
+        id: match.id,
+        edition: editionId || null
+      });
+      allParams.add(param);
     });
+  };
+
+  // Process for default edition
+  await processMatches(undefined);
+
+  // Process for all available editions
+  for (const edition of allEditions) {
+    await processMatches(edition.id);
   }
 
-  // Also get matches for the default (latest) edition
-  const defaultMatches = await getMatches();
-  defaultMatches.forEach(match => {
-    allMatchIds.add(match.id);
-  });
+  // Next.js expects an object with the dynamic param name, not the searchParam.
+  // The searchParam part is handled by Next.js when it renders pages based on links.
+  // We just need to make sure all possible `id`s are generated.
+  const allMatchIds = new Set<string>();
+  const matches_default = await getMatches();
+  matches_default.forEach(m => allMatchIds.add(m.id));
+  for (const edition of allEditions) {
+      const matches_edition = await getMatches(edition.id);
+      matches_edition.forEach(m => allMatchIds.add(m.id));
+  }
 
-  // Return the list of unique match IDs for Next.js to build
-  return Array.from(allMatchIds).map(id => ({
-    id: id,
-  }));
+  return Array.from(allMatchIds).map(id => ({ id: id }));
 }
+
 
 export default async function MatchPage({ params, searchParams }: { params: { id: string }, searchParams: { edition?: string } }) {
   const editionId = searchParams.edition;
