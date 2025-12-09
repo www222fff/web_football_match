@@ -7,35 +7,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import { Suspense } from "react";
 
-export async function generateStaticParams() {
-  const allEditions = await getAvailableEditions();
-  const allParams: { id: string, edition?: string }[] = [];
-
-  // Helper function to process matches for an edition
-  const processMatches = async (editionId?: string) => {
-    const matches = await getMatches(editionId);
-    matches.forEach(match => {
-      // For static export, searchParams are not directly supported in generateStaticParams.
-      // Next.js handles this by rendering different pages based on link URLs.
-      // We just need to provide all possible dynamic `id` segments.
-    });
-  };
-  
-  const allMatchIds = new Set<string>();
-
-  // Get matches for default edition
-  const matches_default = await getMatches();
-  matches_default.forEach(m => allMatchIds.add(m.id));
-
-  // Get matches for all available editions
-  for (const edition of allEditions) {
-      const matches_edition = await getMatches(edition.id);
-      matches_edition.forEach(m => allMatchIds.add(m.id));
-  }
-
-  return Array.from(allMatchIds).map(id => ({ id: id }));
-}
-
+export const dynamic = "force-dynamic";
 
 export default async function MatchPage({ params, searchParams }: { params: { id: string }, searchParams: { edition?: string } }) {
   const editionId = searchParams.edition;

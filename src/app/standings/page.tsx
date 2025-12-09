@@ -2,12 +2,7 @@ import { StandingsTable } from "@/components/standings/StandingsTable";
 import { TopHeader } from "@/components/layout/TopHeader";
 import { getStandings, getAvailableEditions } from "@/lib/data";
 
-export async function generateStaticParams() {
-  const editions = await getAvailableEditions();
-  const params = editions.map(e => ({ edition: e.id }));
-  // Add an entry for the default path with no search params
-  return [{}, ...params];
-}
+export const dynamic = "force-dynamic";
 
 export default async function StandingsPage({ searchParams }: { searchParams: { edition?: string } }) {
   const editionId = searchParams.edition;
