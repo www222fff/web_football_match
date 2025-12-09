@@ -1,4 +1,4 @@
-import { type Team, type Player, type Match, type Standing, type EnrichedMatch, type TournamentEdition } from '@/lib/types';
+import { type Team, type Player, type Match, type Standing, type EnrichedMatch, type TournamentEdition, type MatchEvent } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const getImage = (id: string) => PlaceHolderImages.find(img => img.id === id)?.imageUrl || '';
@@ -22,9 +22,9 @@ const tournamentData: { [key: string]: TournamentEdition } = {};
 for (const editionId in editions) {
     const teamList = teamsData[editionId];
     const players: Player[] = teamList.flatMap((team, index) => [
-        { id: `p${index * 3 + 1}-${editionId}`, name: `${team.name}球员A`, position: '前锋', number: 9, imageUrl: getImage('player-1'), teamId: team.id, stats: { gamesPlayed: 5, goals: 3, assists: 1, shotsPerGame: 2.5, passSuccessRate: 80, yellowCards: 1, redCards: 0 } },
-        { id: `p${index * 3 + 2}-${editionId}`, name: `${team.name}球员B`, position: '中场', number: 10, imageUrl: getImage('player-2'), teamId: team.id, stats: { gamesPlayed: 5, goals: 1, assists: 4, shotsPerGame: 1.2, passSuccessRate: 88, yellowCards: 0, redCards: 0 } },
-        { id: `p${index * 3 + 3}-${editionId}`, name: `${team.name}球员C`, position: '后卫', number: 4, imageUrl: getImage('player-3'), teamId: team.id, stats: { gamesPlayed: 5, goals: 0, assists: 1, shotsPerGame: 0.5, passSuccessRate: 85, yellowCards: 2, redCards: 0 } },
+        { id: `p${index * 3 + 1}-${editionId}`, name: `${team.name.substring(0,4)}球员A`, position: '前锋', number: 9, imageUrl: getImage('player-1'), teamId: team.id, stats: { gamesPlayed: 5, goals: 3, assists: 1, shotsPerGame: 2.5, passSuccessRate: 80, yellowCards: 1, redCards: 0 } },
+        { id: `p${index * 3 + 2}-${editionId}`, name: `${team.name.substring(0,4)}球员B`, position: '中场', number: 10, imageUrl: getImage('player-2'), teamId: team.id, stats: { gamesPlayed: 5, goals: 1, assists: 4, shotsPerGame: 1.2, passSuccessRate: 88, yellowCards: 0, redCards: 0 } },
+        { id: `p${index * 3 + 3}-${editionId}`, name: `${team.name.substring(0,4)}球员C`, position: '后卫', number: 4, imageUrl: getImage('player-3'), teamId: team.id, stats: { gamesPlayed: 5, goals: 0, assists: 1, shotsPerGame: 0.5, passSuccessRate: 85, yellowCards: 2, redCards: 0 } },
     ]);
 
     const teams: Team[] = teamList.map(t => ({
@@ -35,11 +35,34 @@ for (const editionId in editions) {
         coach: `${t.name.substring(0, 1)}教练`
     }));
 
+    const matchEvents: { [matchId: string]: MatchEvent[] } = editionId === '7' ? {
+        'm1': [
+            { minute: 23, type: 'goal', playerId: 'p1-7', teamId: 't1' },
+            { minute: 48, type: 'goal', playerId: 'p4-7', teamId: 't2' },
+            { minute: 78, type: 'goal', playerId: 'p2-7', teamId: 't1' },
+            { minute: 85, type: 'yellow-card', playerId: 'p6-7', teamId: 't2' },
+        ],
+        'm3': [
+            { minute: 11, type: 'goal', playerId: 'p13-7', teamId: 't5' },
+            { minute: 34, type: 'yellow-card', playerId: 'p18-7', teamId: 't6' },
+            { minute: 45, type: 'goal', playerId: 'p14-7', teamId: 't5' },
+            { minute: 55, type: 'goal', playerId: 'p16-7', teamId: 't6' },
+            { minute: 68, type: 'goal', playerId: 'p17-7', teamId: 't6' },
+            { minute: 92, type: 'goal', playerId: 'p13-7', teamId: 't5' },
+        ],
+        'm4': [
+            { minute: 50, type: 'goal', playerId: 'p22-7', teamId: 't8' },
+            { minute: 90, type: 'red-card', playerId: 'p20-7', teamId: 't7' },
+            { minute: 91, type: 'goal', playerId: 'p19-7', teamId: 't7' },
+        ]
+    } : {};
+
+
     const matches: Match[] = editionId === '7' ? [
-        { id: 'm1', team1Id: 't1', team2Id: 't2', date: '2025-09-14', time: '10:00-12:00', venue: '极地南场', status: 'finished', score: { team1: 2, team2: 1 } },
-        { id: 'm2', team1Id: 't3', team2Id: 't4', date: '2025-09-14', time: '10:00-12:00', venue: '极地北场', status: 'finished', score: { team1: 0, team2: 0 } },
-        { id: 'm3', team1Id: 't5', team2Id: 't6', date: '2025-09-14', time: '12:00-14:00', venue: '极地南场', status: 'finished', score: { team1: 3, team2: 2 } },
-        { id: 'm4', team1Id: 't7', team2Id: 't8', date: '2025-09-14', time: '12:00-14:00', venue: '极地北场', status: 'finished', score: { team1: 1, team2: 1 } },
+        { id: 'm1', team1Id: 't1', team2Id: 't2', date: '2025-09-14', time: '10:00-12:00', venue: '极地南场', status: 'finished', score: { team1: 2, team2: 1 }, events: matchEvents['m1'] },
+        { id: 'm2', team1Id: 't3', team2Id: 't4', date: '2025-09-14', time: '10:00-12:00', venue: '极地北场', status: 'finished', score: { team1: 0, team2: 0 }, events: [] },
+        { id: 'm3', team1Id: 't5', team2Id: 't6', date: '2025-09-14', time: '12:00-14:00', venue: '极地南场', status: 'finished', score: { team1: 3, team2: 2 }, events: matchEvents['m3'] },
+        { id: 'm4', team1Id: 't7', team2Id: 't8', date: '2025-09-14', time: '12:00-14:00', venue: '极地北场', status: 'finished', score: { team1: 1, team2: 1 }, events: matchEvents['m4'] },
         { id: 'm5', team1Id: 't9', team2Id: 't10', date: '2025-09-14', time: '14:00-16:00', venue: '极地南场', status: 'scheduled' },
         { id: 'm6', team1Id: 't11', team2Id: 't12', date: '2025-09-14', time: '14:00-16:00', venue: '极地北场', status: 'scheduled' },
     ] : [
@@ -80,10 +103,19 @@ export const getMatches = async (editionId?: string): Promise<EnrichedMatch[]> =
   const enrichedMatches = edition.matches.map(match => {
     const team1 = edition.teams.find(t => t.id === match.team1Id)!;
     const team2 = edition.teams.find(t => t.id === match.team2Id)!;
-    return { ...match, team1, team2 };
+    const enrichedEvents = match.events?.map(event => {
+        const player = edition.players.find(p => p.id === event.playerId);
+        return { ...event, playerName: player?.name || '未知球员' };
+    })
+    return { ...match, team1, team2, events: enrichedEvents };
   });
   return new Promise(resolve => setTimeout(() => resolve(enrichedMatches), 100));
 };
+
+export const getMatch = async (matchId: string, editionId?: string): Promise<EnrichedMatch | undefined> => {
+    const matches = await getMatches(editionId);
+    return matches.find(m => m.id === matchId);
+}
 
 export const getStandings = async (editionId?: string): Promise<Standing[]> => {
     const edition = getEditionData(editionId);

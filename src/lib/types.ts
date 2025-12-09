@@ -41,9 +41,10 @@ export type Match = {
   events?: MatchEvent[];
 };
 
-export type EnrichedMatch = Omit<Match, 'team1Id' | 'team2Id'> & {
+export type EnrichedMatch = Omit<Match, 'team1Id' | 'team2Id' | 'events'> & {
   team1: Team;
   team2: Team;
+  events?: EnrichedMatchEvent[];
 }
 
 export type MatchEvent = {
@@ -52,6 +53,10 @@ export type MatchEvent = {
   playerId: string;
   teamId: string;
 };
+
+export type EnrichedMatchEvent = MatchEvent & {
+  playerName: string;
+}
 
 export type Standing = {
   rank: number;
