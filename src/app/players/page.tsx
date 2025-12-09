@@ -8,7 +8,7 @@ export async function generateStaticParams() {
   const editions = await getAvailableEditions();
   const params = editions.map(e => ({ edition: e.id }));
   // Add a param for the default route (no query params)
-  params.push({ edition: undefined! });
+  params.push({} as any);
   return params;
 }
 
