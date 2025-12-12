@@ -1,5 +1,6 @@
 import { getMatch, getMatches, getAvailableEditions } from "@/lib/data";
 import { TopHeader } from "@/components/layout/TopHeader";
+import { BackButton } from "@/components/layout/BackButton";
 import { MatchCard } from "@/components/matches/MatchCard";
 import { MatchTimeline } from "@/components/matches/MatchTimeline";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -29,7 +30,9 @@ export default async function MatchPage({ params }: { params: { id: string, edit
   if (!match) {
     return (
       <div className="flex flex-col">
-        <TopHeader title="比赛详情" />
+        <TopHeader title="比赛详情">
+          <BackButton />
+        </TopHeader>
         <div className="p-4">
             <Alert variant="destructive">
                 <AlertCircle className="h-4 w-4" />
@@ -43,7 +46,9 @@ export default async function MatchPage({ params }: { params: { id: string, edit
 
   return (
     <div className="flex flex-col">
-      <TopHeader title="比赛详情" />
+       <TopHeader title="比赛详情">
+         <BackButton />
+       </TopHeader>
       <div className="p-4 space-y-6">
         <Suspense fallback={<Card className="h-48 animate-pulse"></Card>}>
           <MatchCard match={match} edition={editionId} />
