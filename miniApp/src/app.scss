@@ -1,0 +1,76 @@
+@use 'sass:color';
+
+// ==================== 1. 自定义主题变量 ====================
+// 从你的 Web globals.css 提取的 SCSS 变量 (暗黑模式)
+$page-bg: hsl(222.2, 84%, 4.9%); // Updated to dark background
+$page-fg: hsl(222.2, 84%, 4.9%);
+
+$card-bg: hsl(222.2, 84%, 4.9%);
+$card-fg: hsl(222.2, 84%, 4.9%);
+
+$primary: hsl(222.2, 47.4%, 11.2%);
+$primary-fg: hsl(210, 40%, 98%);
+$primary-action: #5468ff; // 主操作色，用于按钮
+
+$secondary: hsl(210, 40%, 96.1%);
+$secondary-fg: hsl(222.2, 47.4%, 11.2%);
+
+$muted: hsl(210, 40%, 96.1%);
+$muted-fg: hsl(215.4, 16.3%, 46.9%);
+
+$accent: hsl(210, 40%, 96.1%);
+$accent-fg: hsl(222.2, 47.4%, 11.2%);
+
+$destructive: hsl(0, 84.2%, 60.2%);
+$destructive-fg: hsl(210, 40%, 98%);
+
+$border: hsl(214.3, 31.8%, 91.4%);
+$input-border: hsl(214.3, 31.8%, 91.4%);
+$ring: hsl(222.2, 84%, 4.9%);
+
+$radius: 8rpx;
+
+
+// ==================== 2. 全局样式应用 ====================
+page {
+  min-height: 100vh;
+  background-color: $page-bg;
+  color: $page-fg;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-size: 28rpx; // 增大基础字号
+  -webkit-font-smoothing: antialiased;
+}
+
+// 模拟你的 @layer base { * { @apply border-border; } }
+view, text, image, button, input, textarea {
+  border-color: $border;
+  box-sizing: border-box;
+}
+
+// 输入框、卡片等常用背景
+.input, .card {
+  background-color: $card-bg;
+  color: $card-fg;
+  border-radius: $radius;
+  border: 1rpx solid $border;
+}
+
+// 主要按钮样式
+.primary-button {
+  background-color: $primary-action;
+  color: #fff;
+  border-radius: $radius;
+  padding: 20rpx 40rpx;
+  text-align: center;
+  font-size: 30rpx;
+  line-height: 1.5;
+  height: auto;
+}
+.primary-button.button-hover {
+  background-color: color.adjust($primary-action, $lightness: -10%);
+}
+
+// 去除小程序默认按钮边框
+button::after {
+  border: none;
+}

@@ -1,0 +1,8 @@
+name = "web-recruitment-worker"
+main = "src/index.ts"
+compatibility_date = "2025-11-13"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "recruitment_db"
+database_id = "75eab141-c2af-45a8-b20a-cdc67cec5535"
