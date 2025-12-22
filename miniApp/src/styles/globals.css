@@ -1,0 +1,261 @@
+/* Converted from Tailwind to CSS variables for Taro */
+
+page {
+  --background: 210 40% 98%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 217 91% 60%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 210 10% 3.9%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 210 8.9% 64.9%;
+  --accent: 36 100% 55%;
+  --accent-foreground: 0 0% 3.9%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 217 91% 60%;
+  --radius: 8rpx;
+
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.text-sm {
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+
+.text-xs {
+  font-size: 24rpx;
+  line-height: 32rpx;
+}
+
+.text-lg {
+  font-size: 36rpx;
+  line-height: 56rpx;
+}
+.text-xl {
+    font-size: 40rpx;
+    line-height: 56rpx;
+}
+.text-3xl {
+    font-size: 60rpx;
+    line-height: 72rpx;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.text-primary {
+  color: hsl(var(--primary));
+}
+.text-muted-foreground {
+  color: hsl(var(--muted-foreground));
+}
+.text-accent-foreground {
+    color: hsl(var(--accent-foreground));
+}
+.text-destructive {
+    color: hsl(var(--destructive));
+}
+
+
+.bg-background {
+  background-color: hsl(var(--background));
+}
+.bg-card {
+    background-color: hsl(var(--card));
+}
+.bg-muted {
+  background-color: hsl(var(--muted));
+}
+.bg-primary {
+    background-color: hsl(var(--primary));
+}
+.bg-accent {
+    background-color: hsl(var(--accent));
+}
+.bg-destructive {
+    background-color: hsl(var(--destructive));
+}
+.bg-yellow-400 {
+    background-color: #FBBF24;
+}
+.bg-red-600 {
+    background-color: #DC2626;
+}
+
+.border {
+  border-width: 1px;
+  border-color: hsl(var(--border));
+}
+.border-t {
+    border-top-width: 1px;
+    border-color: hsl(var(--border));
+}
+.border-b {
+    border-bottom-width: 1px;
+    border-color: hsl(var(--border));
+}
+.border-destructive {
+    border-color: hsl(var(--destructive));
+}
+.border-input {
+    border-color: hsl(var(--input));
+}
+
+
+.rounded-lg {
+  border-radius: var(--radius);
+}
+.rounded-md {
+  border-radius: calc(var(--radius) - 2rpx);
+}
+.rounded-sm {
+    border-radius: calc(var(--radius) - 4rpx);
+}
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.p-4 {
+  padding: 32rpx;
+}
+.p-2 {
+    padding: 16rpx;
+}
+.px-4 {
+    padding-left: 32rpx;
+    padding-right: 32rpx;
+}
+.py-4 {
+    padding-top: 32rpx;
+    padding-bottom: 32rpx;
+}
+.pl-10 {
+    padding-left: 80rpx;
+}
+
+.m-2 {
+    margin: 16rpx;
+}
+.mt-1 {
+    margin-top: 8rpx;
+}
+.mt-2 {
+    margin-top: 16rpx;
+}
+.mt-3 {
+    margin-top: 24rpx;
+}
+.mt-8 {
+    margin-top: 64rpx;
+}
+.mb-2 {
+    margin-bottom: 16rpx;
+}
+.mx-2 {
+    margin-left: 16rpx;
+    margin-right: 16rpx;
+}
+.mx-4 {
+    margin-left: 32rpx;
+    margin-right: 32rpx;
+}
+.ml-1 {
+    margin-left: 8rpx;
+}
+
+.space-y-4 > * {
+  margin-top: 32rpx;
+}
+.space-y-6 > * {
+    margin-top: 48rpx;
+}
+
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-row {
+    flex-direction: row;
+}
+.flex-row-reverse {
+    flex-direction: row-reverse;
+}
+.flex-1 {
+    flex: 1 1 0%;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-end {
+    justify-content: flex-end;
+}
+.gap-2 {
+    gap: 16rpx;
+}
+.gap-3 {
+    gap: 24rpx;
+}
+.gap-4 {
+    gap: 32rpx;
+}
+.gap-x-4 {
+    column-gap: 32rpx;
+}
+
+.w-full {
+  width: 100%;
+}
+.h-full {
+  height: 100%;
+}
+.h-4 { height: 32rpx; }
+.w-4 { width: 32rpx; }
+.h-5 { height: 40rpx; }
+.w-5 { width: 40rpx; }
+.h-24 { height: 192rpx; }
+
+.shadow-md {
+  box-shadow: 0 4rpx 6rpx -1rpx rgba(0,0,0,0.1), 0 2rpx 4rpx -1rpx rgba(0,0,0,0.06);
+}
+
+.hidden {
+    display: none;
+}
+
+.relative {
+    position: relative;
+}
+.absolute {
+    position: absolute;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+.overflow-y-auto {
+    overflow-y: auto;
+}

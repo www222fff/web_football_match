@@ -1,0 +1,38 @@
+.page-container {
+  background-color: hsl(var(--background));
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.player-list-container {
+  padding: 32rpx;
+  flex: 1;
+}
+
+.search-bar-container {
+  position: relative;
+  margin-bottom: 32rpx;
+}
+
+.search-input {
+  height: 80rpx;
+  padding: 0 32rpx;
+  border-radius: 16rpx;
+  border: 1px solid hsl(var(--input));
+  background-color: hsl(var(--card));
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.player-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
+}
+
+.empty-text {
+  display: block;
+  text-align: center;
+  color: hsl(var(--muted-foreground));
+  margin-top: 64rpx;
+}

@@ -1,0 +1,139 @@
+.match-card-navigator {
+  display: block;
+}
+
+.match-card {
+  overflow: hidden;
+  box-shadow: 0 4rpx 6rpx -1rpx rgba(0,0,0,0.1), 0 2rpx 4rpx -1rpx rgba(0,0,0,0.06);
+  border-radius: 16rpx;
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  margin-bottom: 32rpx;
+}
+
+.card-content {
+  padding: 32rpx;
+  position: relative;
+}
+
+.teams-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.team-info {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  width: 33.3333%;
+}
+
+.justify-end {
+    justify-content: flex-end;
+}
+
+.team-logo {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 9999px;
+  background-color: hsl(var(--muted));
+}
+
+.team-name {
+  font-weight: 700;
+  font-size: 32rpx;
+}
+
+.large-screen {
+  /* In Mini Programs, we can't use sm: prefixes easily without advanced setup */
+  /* For simplicity, we can choose to show it or hide it. Let's show it. */
+  display: inline;
+}
+.text-right {
+    text-align: right;
+}
+
+.score-or-time {
+  text-align: center;
+}
+
+.time-text {
+  color: hsl(var(--muted-foreground));
+  font-weight: 700;
+  font-size: 36rpx;
+}
+
+.score-display {
+  font-size: 60rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.score-separator {
+  margin: 0 16rpx;
+  color: hsl(var(--muted-foreground));
+}
+
+.badge {
+  margin-top: 8rpx;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 4rpx 20rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.live-badge {
+  background-color: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+.finished-badge {
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+  border: 1px solid hsl(var(--border));
+}
+
+.teams-row-small {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16rpx;
+  /* Hide on larger screens if we could detect them. Here we just show it */
+}
+
+.team-name-small {
+  font-weight: 700;
+  font-size: 28rpx;
+}
+
+.vs-text {
+  margin: 0 32rpx;
+  color: hsl(var(--muted-foreground));
+}
+
+.match-details {
+  text-align: center;
+  font-size: 28rpx;
+  color: hsl(var(--muted-foreground));
+  margin-top: 24rpx;
+  padding-top: 24rpx;
+  border-top: 1px solid hsl(var(--border));
+}
+
+.details-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32rpx;
+  flex-wrap: wrap;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}

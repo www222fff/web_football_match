@@ -1,0 +1,7 @@
+.page-container {
+  background-color: hsl(var(--background));
+  min-height: 100vh;
+}
+.p-2 {
+  padding: 16rpx;
+}

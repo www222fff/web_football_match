@@ -1,0 +1,92 @@
+.standings-card {
+  border-radius: 16rpx;
+  border: 1px solid hsl(var(--border));
+  overflow: hidden;
+  background-color: hsl(var(--card));
+}
+
+.standings-table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-size: 28rpx;
+}
+
+.table-header, .table-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid hsl(var(--border));
+  width: 100%;
+}
+
+.table-header {
+  background-color: hsl(var(--muted-foreground), 0.05);
+  height: 96rpx;
+}
+
+.table-row {
+    height: 112rpx;
+}
+.table-body > .table-row:last-child {
+  border-bottom: none;
+}
+
+.highlight-row {
+  background-color: hsla(var(--primary), 0.05);
+}
+
+.table-head, .table-cell {
+  padding: 0 16rpx;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table-head {
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+}
+
+.rank-col {
+  width: 10%;
+  font-weight: 500;
+}
+.team-col {
+  width: 35%;
+  justify-content: flex-start;
+  text-align: left;
+}
+.played-col {
+  width: 10%;
+}
+.wdl-col {
+  width: 20%;
+}
+.gd-col {
+  width: 15%;
+}
+.pts-col {
+  width: 10%;
+}
+
+.team-cell-content {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.team-logo {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 9999px;
+  background-color: hsl(var(--muted));
+}
+
+.team-name {
+  font-weight: 500;
+}
+
+.pts-value {
+    font-weight: 700;
+}

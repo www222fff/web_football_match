@@ -1,0 +1,60 @@
+.player-card {
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 6rpx -1rpx rgba(0,0,0,0.1);
+}
+
+.player-card-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 32rpx;
+  padding: 32rpx;
+}
+
+.player-image {
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 9999px;
+  border: 2px solid hsl(var(--primary));
+  background-color: hsl(var(--muted));
+}
+
+.player-name {
+  font-size: 36rpx;
+  font-weight: 700;
+  display: block;
+}
+
+.player-details {
+  font-size: 28rpx;
+  color: hsl(var(--muted-foreground));
+}
+
+.player-card-content {
+  padding: 0 32rpx 32rpx;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16rpx;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-weight: 700;
+  font-size: 36rpx;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: hsl(var(--muted-foreground));
+}
